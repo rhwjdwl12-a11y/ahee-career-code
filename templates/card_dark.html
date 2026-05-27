@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Ahee Career Card · E2 The Driver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  /* ============ A6 SIZE: 105mm × 148mm ============ */
+  @page {
+    size: 105mm 148mm;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 105mm; }
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  :root {
+    --bg: #FAFAF8;
+    --ink: #0A0A0A;
+    --ink-2: #2A2A2A;
+    --ink-3: #6B6B6B;
+    --ink-4: #B8B8B8;
+    --line: #ECECEC;
+    --ahee: #FF3366;
+    --ahee-deep: #E5184D;
+    --eng: 'Inter Tight', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Pretendard', sans-serif;
+  }
+
+  .page {
+    width: 105mm;
+    height: 148mm;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ============ FRONT (앞면) - 다크 ============ */
+  .front {
+    background: #0A0A0A;
+    color: #FFFFFF;
+    padding: 9mm 8mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .front .watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -45%);
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 220mm;
+    line-height: 0.78;
+    letter-spacing: -0.1em;
+    color: #FFFFFF;
+    opacity: 0.04;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  /* Top bar */
+  .front .top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 3mm;
+  }
+  .front .brand {
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 9.5pt;
+    letter-spacing: -0.02em;
+  }
+  .front .brand .dot { color: var(--ahee); }
+  .front .no {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+  }
+
+  /* Mid */
+  .front .mid {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 4mm;
+  }
+  .front .cat {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ahee);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 3.5mm;
+  }
+  .front .name {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 28pt;
+    letter-spacing: -0.035em;
+    line-height: 1.0;
+    margin-bottom: 1.5mm;
+  }
+  .front .name .accent { color: var(--ahee); }
+  .front .name .punct { color: var(--ahee); }
+  .front .en {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-style: italic;
+    font-size: 11pt;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: -0.01em;
+    margin-bottom: 6mm;
+  }
+  .front .slogan {
+    font-family: var(--sans);
+    font-size: 9.5pt;
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: -0.015em;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 6mm;
+    padding-left: 3mm;
+    border-left: 1.5px solid var(--ahee);
+  }
+  .front .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5mm;
+  }
+  .front .trait {
+    padding: 1mm 2.5mm;
+    background: rgba(255,255,255,0.08);
+    border: 0.3px solid rgba(255,255,255,0.18);
+    font-size: 6.5pt;
+    color: rgba(255,255,255,0.92);
+    letter-spacing: -0.01em;
+  }
+
+  /* Bottom */
+  .front .bottom {
+    position: relative;
+    z-index: 2;
+  }
+  .front .divider {
+    height: 0.3px;
+    background: rgba(255,255,255,0.2);
+    margin-bottom: 3mm;
+  }
+  .front .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3mm;
+    margin-bottom: 3mm;
+  }
+  .front .meta .item .k {
+    font-family: var(--mono);
+    font-size: 5.5pt;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.8mm;
+  }
+  .front .meta .item .v {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.92);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .front .foot {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 5.5pt;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ BACK (뒷면) - 라이트 ============ */
+  .back {
+    background: var(--bg);
+    color: var(--ink);
+    padding: 9mm 8mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Back header */
+  .back .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 3.5mm;
+    border-bottom: 0.5px solid var(--line);
+    margin-bottom: 4mm;
+  }
+  .back .top .left .label {
+    font-family: var(--mono);
+    font-size: 6pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+  .back .top .left .label .dot { color: var(--ahee); margin: 0 1mm; }
+  .back .top .left .name {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 14pt;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .back .top .left .name .accent { color: var(--ahee); }
+  .back .top .right .code-tag {
+    display: inline-block;
+    padding: 1mm 2.5mm;
+    background: var(--ink);
+    color: #FFFFFF;
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 8pt;
+    letter-spacing: -0.01em;
+  }
+
+  /* Detail grid */
+  .back .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5mm;
+    margin-bottom: 4mm;
+  }
+  .back .detail-card {
+    padding: 2.8mm 3mm;
+    background: #FFFFFF;
+    border: 0.4px solid var(--line);
+  }
+  .back .detail-label {
+    font-family: var(--mono);
+    font-size: 5.5pt;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+  }
+  .back .detail-label .num {
+    color: var(--ahee);
+    font-weight: 700;
+    margin-right: 1mm;
+  }
+  .back .detail-title {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 7.5pt;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.2mm;
+    color: var(--ink);
+  }
+  .back .detail-body {
+    font-family: var(--sans);
+    font-size: 6.5pt;
+    line-height: 1.5;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+
+  /* Job match */
+  .back .match-section {
+    margin-bottom: 3mm;
+  }
+  .back .match-label {
+    font-family: var(--mono);
+    font-size: 5.8pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2.5mm;
+  }
+  .back .match-label .dot { color: var(--ahee); margin: 0 1mm; }
+  .back .match-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1mm;
+  }
+  .back .match-item {
+    display: grid;
+    grid-template-columns: 6mm 1fr 18mm 9mm;
+    gap: 2mm;
+    align-items: center;
+    padding: 1.5mm 0;
+  }
+  .back .match-rank {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 7.5pt;
+    color: var(--ink-4);
+    letter-spacing: -0.02em;
+  }
+  .back .match-name {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 7.5pt;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .back .match-bar {
+    height: 1mm;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .back .match-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--ahee);
+  }
+  .back .match-pct {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 7.5pt;
+    text-align: right;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .back .match-pct .unit {
+    font-size: 5.5pt;
+    color: var(--ink-3);
+    font-family: var(--mono);
+    margin-left: 0.5mm;
+    font-weight: 400;
+  }
+
+  /* Back footer */
+  .back .foot {
+    margin-top: auto;
+    padding-top: 2.5mm;
+    border-top: 0.4px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 5.5pt;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+  }
+  .back .foot .brand-mini {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 6.5pt;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .back .foot .brand-mini .dot { color: var(--ahee); }
+</style>
+</head>
+<body>
+
+<!-- ========== PAGE 1: FRONT ========== -->
+<div class="page front">
+  <div class="watermark">E2</div>
+
+  <div class="top">
+    <div class="brand">ahee<span class="dot">.</span> career card</div>
+    <div class="no">no. 011 / 014</div>
+  </div>
+
+  <div class="mid">
+    <div class="cat">● career persona / E2</div>
+    <div class="name">The <span class="accent">Driver</span><span class="punct">.</span></div>
+    <div class="en">기회 추진형</div>
+    <div class="slogan">"불확실해도 일단 시작해서<br>결과로 증명한다"</div>
+    <div class="traits">
+      <span class="trait">#리더십</span>
+      <span class="trait">#설득력</span>
+      <span class="trait">#승부근성</span>
+      <span class="trait">#실행력</span>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="divider"></div>
+    <div class="meta">
+      <div class="item">
+        <div class="k">main code</div>
+        <div class="v">E · 기업형</div>
+      </div>
+      <div class="item">
+        <div class="k">best fit</div>
+        <div class="v">사업개발 · PM</div>
+      </div>
+    </div>
+    <div class="foot">
+      <span>ahee.co.kr / career-card</span>
+      <span>2026.05</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE 2: BACK ========== -->
+<div class="page back">
+
+  <div class="top">
+    <div class="left">
+      <div class="label">your career profile <span class="dot">●</span> back</div>
+      <div class="name">The <span class="accent">Driver</span></div>
+    </div>
+    <div class="right">
+      <div class="code-tag">E2</div>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <div class="detail-label"><span class="num">①</span> STRENGTH</div>
+      <div class="detail-title">잘하는 일</div>
+      <div class="detail-body">기회를 발견하고 빠르게 실행하는 추진력. 협상·설득·영업으로 결과를 만드는 힘이 강합니다.</div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label"><span class="num">②</span> PITFALL</div>
+      <div class="detail-title">조심할 점</div>
+      <div class="detail-body">준비 부족인 상태에서 일을 벌이기 쉽습니다. 디테일을 놓치면 큰 손실로 이어질 수 있어요.</div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label"><span class="num">③</span> SYNERGY</div>
+      <div class="detail-title">잘 맞는 페르소나</div>
+      <div class="detail-body">I형(분석) · C형(체계) 페르소나가 옆에 있으면 무적입니다. 시너지가 강합니다.</div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-label"><span class="num">④</span> ADVICE</div>
+      <div class="detail-title">취업 전략 한 줄</div>
+      <div class="detail-body">"성과를 숫자로". 'OO를 OO% 끌어올렸다' 패턴이 자소서에서 가장 잘 통합니다.</div>
+    </div>
+  </div>
+
+  <div class="match-section">
+    <div class="match-label">job match <span class="dot">●</span> top 5</div>
+    <div class="match-list">
+      <div class="match-item">
+        <div class="match-rank">01</div>
+        <div class="match-name">사업개발</div>
+        <div class="match-bar"><div class="match-fill" style="width:94%"></div></div>
+        <div class="match-pct">94<span class="unit">%</span></div>
+      </div>
+      <div class="match-item">
+        <div class="match-rank">02</div>
+        <div class="match-name">PM (프로덕트 매니저)</div>
+        <div class="match-bar"><div class="match-fill" style="width:91%"></div></div>
+        <div class="match-pct">91<span class="unit">%</span></div>
+      </div>
+      <div class="match-item">
+        <div class="match-rank">03</div>
+        <div class="match-name">스타트업 멤버</div>
+        <div class="match-bar"><div class="match-fill" style="width:88%"></div></div>
+        <div class="match-pct">88<span class="unit">%</span></div>
+      </div>
+      <div class="match-item">
+        <div class="match-rank">04</div>
+        <div class="match-name">퍼포먼스 마케터</div>
+        <div class="match-bar"><div class="match-fill" style="width:85%"></div></div>
+        <div class="match-pct">85<span class="unit">%</span></div>
+      </div>
+      <div class="match-item">
+        <div class="match-rank">05</div>
+        <div class="match-name">B2B 세일즈</div>
+        <div class="match-bar"><div class="match-fill" style="width:82%"></div></div>
+        <div class="match-pct">82<span class="unit">%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="brand-mini">ahee<span class="dot">.</span> career card</span>
+    <span>holland riasec · v0.3</span>
+  </div>
+</div>
+
+</body>
+</html>

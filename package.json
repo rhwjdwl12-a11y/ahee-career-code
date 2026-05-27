@@ -1,0 +1,28 @@
+{
+  "name": "ahee-career-code",
+  "version": "0.3.0",
+  "description": "Ahee Career Code — RIASEC 기반 자체 커리어 검사 (Holland 이론 기반)",
+  "private": true,
+  "scripts": {
+    "test:v03": "open public/v03_test.html || xdg-open public/v03_test.html",
+    "test:v02": "open public/v02_test.html || xdg-open public/v02_test.html",
+    "build:card": "python3 scripts/build_card.py --persona E2",
+    "build:cards:all": "python3 scripts/build_card.py --all",
+    "build:report": "python3 scripts/build_report.py",
+    "install:py": "pip install playwright --break-system-packages && playwright install chromium"
+  },
+  "keywords": [
+    "career",
+    "riasec",
+    "holland",
+    "personality",
+    "korean",
+    "education",
+    "career-test"
+  ],
+  "author": "Ahee (아희)",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  }
+}

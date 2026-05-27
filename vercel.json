@@ -1,0 +1,24 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/v03_test", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/quick", "destination": "/v03_test" },
+    { "source": "/full",  "destination": "/v02_test" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options",        "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ],
+  "outputDirectory": "public"
+}

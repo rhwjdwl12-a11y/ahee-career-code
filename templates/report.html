@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Ahee Career Code Report · v0.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  @page { size: 210mm 297mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 210mm; }
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: #FFFFFF;
+    color: #0A0A0A;
+  }
+
+  :root {
+    --bg: #FAFAF8;
+    --ink: #0A0A0A;
+    --ink-2: #2A2A2A;
+    --ink-3: #6B6B6B;
+    --ink-4: #B8B8B8;
+    --line: #ECECEC;
+    --line-2: #DDDDDD;
+    --ahee: #FF3366;
+    --ahee-deep: #E5184D;
+    --ahee-soft: #FFF0F4;
+    --code-R: #E85A4F;
+    --code-I: #4F77E8;
+    --code-A: #9B59E8;
+    --code-S: #2EBA6A;
+    --code-E: #F39C12;
+    --code-C: #16A2A8;
+    --eng: 'Inter Tight', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Pretendard', sans-serif;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+    padding: 18mm 18mm 14mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ============ COMMON HEADER ============ */
+  .pg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 6mm;
+    border-bottom: 0.5px solid var(--line);
+    margin-bottom: 10mm;
+  }
+  .pg-header .left {
+    display: flex;
+    flex-direction: column;
+    gap: 1mm;
+  }
+  .pg-header .brand {
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 11pt;
+    letter-spacing: -0.02em;
+  }
+  .pg-header .brand .dot { color: var(--ahee); }
+  .pg-header .left .meta {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pg-header .right {
+    text-align: right;
+  }
+  .pg-header .right .doc-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+  .pg-header .right .doc-id {
+    font-family: var(--mono);
+    font-size: 8pt;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+
+  /* ============ COMMON FOOTER ============ */
+  .pg-footer {
+    margin-top: auto;
+    padding-top: 6mm;
+    border-top: 0.5px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+  }
+  .pg-footer .brand-mini {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 7.5pt;
+    color: var(--ink);
+  }
+  .pg-footer .brand-mini .dot { color: var(--ahee); }
+  .pg-footer .page-num {
+    font-family: var(--eng);
+    font-weight: 600;
+    font-size: 8pt;
+    color: var(--ink);
+  }
+
+  /* ============ PAGE 1: COVER + SUMMARY ============ */
+  .p1-watermark {
+    position: absolute;
+    top: 56mm;
+    right: -20mm;
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 280pt;
+    line-height: 0.8;
+    letter-spacing: -0.08em;
+    color: var(--ink);
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .p1-eyebrow {
+    font-family: var(--mono);
+    font-size: 8pt;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6mm;
+    position: relative;
+    z-index: 1;
+  }
+  .p1-eyebrow .dot { color: var(--ahee); margin: 0 2mm; }
+
+  .p1-title {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 30pt;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin-bottom: 4mm;
+    position: relative;
+    z-index: 1;
+  }
+  .p1-title .accent { color: var(--ahee); }
+  .p1-title .punct { color: var(--ahee); }
+
+  .p1-subtitle {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 12pt;
+    color: var(--ink-2);
+    letter-spacing: -0.015em;
+    line-height: 1.55;
+    max-width: 130mm;
+    margin-bottom: 12mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Main code display */
+  .p1-main-code-section {
+    background: var(--ink);
+    color: #FFFFFF;
+    padding: 12mm 10mm;
+    margin: 0 -8mm 10mm;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 10mm;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .p1-main-code-section .code-display {
+    display: flex;
+    flex-direction: column;
+    gap: 2mm;
+  }
+  .p1-main-code-section .code-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .p1-main-code-section .code-letters {
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 56pt;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+  .p1-main-code-section .code-letters .c1 { color: #FFFFFF; }
+  .p1-main-code-section .code-letters .c2 { color: rgba(255,255,255,0.55); }
+  .p1-main-code-section .code-letters .c3 { color: rgba(255,255,255,0.3); }
+  .p1-main-code-section .info {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+  }
+  .p1-main-code-section .info .persona {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 20pt;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .p1-main-code-section .info .persona .accent { color: var(--ahee); }
+  .p1-main-code-section .info .persona-ko {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-style: italic;
+    font-size: 11pt;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: -0.01em;
+  }
+  .p1-main-code-section .info .metrics {
+    display: flex;
+    gap: 6mm;
+    margin-top: 2mm;
+  }
+  .p1-main-code-section .info .metric .k {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5mm;
+  }
+  .p1-main-code-section .info .metric .v {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 12pt;
+    letter-spacing: -0.02em;
+  }
+  .p1-main-code-section .info .metric .v .unit {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    margin-left: 1mm;
+  }
+
+  /* 6코드 분포 */
+  .p1-distribution {
+    margin-bottom: 8mm;
+    position: relative;
+    z-index: 1;
+  }
+  .p1-distribution .sec-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2mm;
+  }
+  .p1-distribution .sec-label .dot { color: var(--ahee); margin: 0 1mm; }
+  .p1-distribution h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 13pt;
+    letter-spacing: -0.02em;
+    margin-bottom: 5mm;
+  }
+
+  .p1-bar-row {
+    display: grid;
+    grid-template-columns: 18mm 1fr 18mm;
+    gap: 4mm;
+    align-items: center;
+    padding: 2.2mm 0;
+    border-bottom: 0.4px solid var(--line);
+  }
+  .p1-bar-row:last-child { border-bottom: none; }
+  .p1-code-lbl {
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+  }
+  .p1-code-letter {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 12pt;
+    letter-spacing: -0.02em;
+    width: 5mm;
+  }
+  .p1-code-name {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    color: var(--ink-2);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .p1-bar-track {
+    height: 1.5mm;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .p1-bar-fill {
+    height: 100%;
+    position: absolute;
+    left: 0; top: 0;
+  }
+  .p1-bar-score {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 11pt;
+    text-align: right;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .p1-bar-score .unit {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    font-weight: 400;
+    margin-left: 0.5mm;
+  }
+
+  /* ============ PAGE 2: STRENGTH + INSIGHTS ============ */
+  .p2-section-title {
+    margin-bottom: 8mm;
+  }
+  .p2-section-title .sec-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2mm;
+  }
+  .p2-section-title .sec-label .dot { color: var(--ahee); margin: 0 1mm; }
+  .p2-section-title h2 {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 22pt;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 3mm;
+  }
+  .p2-section-title h2 .accent { color: var(--ahee); }
+  .p2-section-title h2 .punct { color: var(--ahee); }
+  .p2-section-title p {
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--ink-2);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    max-width: 140mm;
+  }
+
+  /* Facet TOP 5 */
+  .p2-facets {
+    margin-bottom: 12mm;
+  }
+  .p2-facets .sub-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4mm;
+  }
+  .p2-facets .sub-label .dot { color: var(--ahee); margin: 0 1mm; }
+
+  .p2-facet-row {
+    display: grid;
+    grid-template-columns: 10mm 1fr 25mm 15mm;
+    gap: 4mm;
+    align-items: center;
+    padding: 3mm 0;
+    border-bottom: 0.4px solid var(--line);
+  }
+  .p2-facet-rank {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 13pt;
+    color: var(--ink-4);
+    letter-spacing: -0.03em;
+  }
+  .p2-facet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8mm;
+  }
+  .p2-facet-name {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 10pt;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .p2-facet-meta {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.03em;
+  }
+  .p2-facet-meta .code-tag {
+    display: inline-block;
+    padding: 0.4mm 1.5mm;
+    background: var(--bg);
+    font-weight: 700;
+    margin-right: 1mm;
+  }
+  .p2-facet-bar {
+    height: 1.2mm;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .p2-facet-fill {
+    height: 100%;
+    position: absolute;
+    left: 0; top: 0;
+    background: var(--ahee);
+  }
+  .p2-facet-score {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 12pt;
+    text-align: right;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .p2-facet-score .unit {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    font-weight: 400;
+  }
+
+  /* Insights 4-grid */
+  .p2-insights .sub-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4mm;
+  }
+  .p2-insights .sub-label .dot { color: var(--ahee); margin: 0 1mm; }
+  .p2-insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3mm;
+  }
+  .p2-insight-card {
+    padding: 5mm 5mm;
+    background: #FFFFFF;
+    border: 0.4px solid var(--line);
+  }
+  .p2-insight-card.dark {
+    background: var(--ink);
+    color: #FFFFFF;
+    border-color: var(--ink);
+  }
+  .p2-insight-card .icard-label {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2mm;
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+  }
+  .p2-insight-card.dark .icard-label { color: rgba(255,255,255,0.5); }
+  .p2-insight-card .icard-label .num {
+    color: var(--ahee);
+    font-weight: 700;
+    font-family: var(--eng);
+    font-size: 8pt;
+  }
+  .p2-insight-card .icard-title {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11pt;
+    letter-spacing: -0.015em;
+    margin-bottom: 2mm;
+  }
+  .p2-insight-card .icard-body {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    line-height: 1.6;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+  .p2-insight-card.dark .icard-body { color: rgba(255,255,255,0.78); }
+
+  /* ============ PAGE 3: ACTION ============ */
+  /* Job match */
+  .p3-jobs {
+    margin-bottom: 12mm;
+  }
+  .p3-jobs .sub-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4mm;
+  }
+  .p3-jobs .sub-label .dot { color: var(--ahee); margin: 0 1mm; }
+
+  .p3-job-row {
+    display: grid;
+    grid-template-columns: 8mm 1fr 1.5fr 18mm 12mm;
+    gap: 4mm;
+    align-items: center;
+    padding: 3mm 0;
+    border-bottom: 0.4px solid var(--line);
+  }
+  .p3-job-rank {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 12pt;
+    color: var(--ink-4);
+    letter-spacing: -0.03em;
+  }
+  .p3-job-name {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 10pt;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .p3-job-desc {
+    font-family: var(--sans);
+    font-size: 8pt;
+    color: var(--ink-3);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+  .p3-job-bar {
+    height: 1.2mm;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .p3-job-fill {
+    height: 100%;
+    position: absolute;
+    left: 0; top: 0;
+    background: var(--ahee);
+  }
+  .p3-job-pct {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 11pt;
+    text-align: right;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .p3-job-pct .unit {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ink-3);
+    font-weight: 400;
+  }
+
+  /* Action zones */
+  .p3-action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin-bottom: 8mm;
+  }
+  .p3-action-card {
+    padding: 6mm;
+    background: var(--bg);
+    border-left: 2px solid var(--ahee);
+  }
+  .p3-action-card .a-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--ahee);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2mm;
+    font-weight: 700;
+  }
+  .p3-action-card .a-title {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 12pt;
+    letter-spacing: -0.02em;
+    margin-bottom: 3mm;
+  }
+  .p3-action-card .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5mm;
+    margin-bottom: 3mm;
+  }
+  .p3-action-card .kw {
+    padding: 1mm 2.5mm;
+    background: #FFFFFF;
+    border: 0.4px solid var(--line);
+    font-family: var(--sans);
+    font-size: 8pt;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+  .p3-action-card .kw.hot {
+    background: var(--ahee);
+    color: #FFFFFF;
+    border-color: var(--ahee);
+    font-weight: 600;
+  }
+  .p3-action-card .body {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    line-height: 1.6;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+
+  /* Final advice quote */
+  .p3-advice {
+    margin-top: auto;
+    padding: 8mm;
+    background: var(--ink);
+    color: #FFFFFF;
+    position: relative;
+    margin-bottom: 6mm;
+  }
+  .p3-advice-label {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 3mm;
+  }
+  .p3-advice-label .dot { color: var(--ahee); margin: 0 1mm; }
+  .p3-advice-text {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 13pt;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+  }
+  .p3-advice-text .accent { color: var(--ahee); font-weight: 700; }
+  .p3-advice-sign {
+    margin-top: 4mm;
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1: COVER + SUMMARY ============ -->
+<div class="page">
+  <div class="p1-watermark">E</div>
+
+  <div class="pg-header">
+    <div class="left">
+      <div class="brand">ahee<span class="dot">.</span> career code</div>
+      <div class="meta">career interest report · v0.2</div>
+    </div>
+    <div class="right">
+      <div class="doc-label">document no.</div>
+      <div class="doc-id">ACC-2026-0001</div>
+    </div>
+  </div>
+
+  <div class="p1-eyebrow">section 01 <span class="dot">●</span> diagnosis summary</div>
+  <h1 class="p1-title">기회를 결과로 만드는 사람<span class="punct">,</span><br>당신의 코드는 <span class="accent">ESR</span><span class="punct">.</span></h1>
+  <p class="p1-subtitle">
+    100문항 검사를 통해 분석된 당신의 직업 흥미 코드입니다. 메인 코드 E(기업형)를 중심으로 S·R이
+    보조 코드로 작동하며, 사업·추진·실행이 만나는 영역에서 강점이 가장 잘 살아납니다.
+  </p>
+
+  <div class="p1-main-code-section">
+    <div class="code-display">
+      <div class="code-label">your main code</div>
+      <div class="code-letters">
+        <span class="c1">E</span><span class="c2">S</span><span class="c3">R</span>
+      </div>
+    </div>
+    <div class="info">
+      <div class="persona">The <span class="accent">Driver</span></div>
+      <div class="persona-ko">기회 추진형 · Career Persona E2</div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="k">main score</div>
+          <div class="v">78<span class="unit">/100</span></div>
+        </div>
+        <div class="metric">
+          <div class="k">intensity</div>
+          <div class="v">명확함</div>
+        </div>
+        <div class="metric">
+          <div class="k">type</div>
+          <div class="v">주력 코드형</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p1-distribution">
+    <div class="sec-label">distribution <span class="dot">●</span> 6 main codes</div>
+    <h3>6개 메인 코드 분포</h3>
+
+    <div class="p1-bar-row">
+      <div class="p1-code-lbl">
+        <span class="p1-code-letter" style="color:var(--code-E)">E</span>
+        <span class="p1-code-name">기업형</span>
+      </div>
+      <div class="p1-bar-track"><div class="p1-bar-fill" style="width:78%;background:var(--code-E)"></div></div>
+      <div class="p1-bar-score">78<span class="unit">/100</span></div>
+    </div>
+    <div class="p1-bar-row">
+      <div class="p1-code-lbl">
+        <span class="p1-code-letter" style="color:var(--code-S)">S</span>
+        <span class="p1-code-name">사회형</span>
+      </div>
+      <div class="p1-bar-track"><div class="p1-bar-fill" style="width:62%;background:var(--code-S)"></div></div>
+      <div class="p1-bar-score">62<span class="unit">/100</span></div>
+    </div>
+    <div class="p1-bar-row">
+      <div class="p1-code-lbl">
+        <span class="p1-code-letter" style="color:var(--code-R)">R</span>
+        <span class="p1-code-name">현실형</span>
+      </div>
+      <div class="p1-bar-track"><div class="p1-bar-fill" style="width:48%;background:var(--code-R)"></div></div>
+      <div class="p1-bar-score">48<span class="unit">/100</span></div>
+    </div>
+    <div class="p1-bar-row">
+      <div class="p1-code-lbl">
+        <span class="p1-code-letter" style="color:var(--code-A)">A</span>
+        <span class="p1-code-name">예술형</span>
+      </div>
+      <div class="p1-bar-track"><div class="p1-bar-fill" style="width:42%;background:var(--code-A)"></div></div>
+      <div class="p1-bar-score">42<span class="unit">/100</span></div>
+    </div>
+    <div class="p1-bar-row">
+      <div class="p1-code-lbl">
+        <span class="p1-code-letter" style="color:var(--code-I)">I</span>
+        <span class="p1-code-name">탐구형</span>
+      </div>
+      <div class="p1-bar-track"><div class="p1-bar-fill" style="width:35%;background:var(--code-I)"></div></div>
+      <div class="p1-bar-score">35<span class="unit">/100</span></div>
+    </div>
+    <div class="p1-bar-row">
+      <div class="p1-code-lbl">
+        <span class="p1-code-letter" style="color:var(--code-C)">C</span>
+        <span class="p1-code-name">관습형</span>
+      </div>
+      <div class="p1-bar-track"><div class="p1-bar-fill" style="width:28%;background:var(--code-C)"></div></div>
+      <div class="p1-bar-score">28<span class="unit">/100</span></div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
+    <span>holland riasec · 100 items · 22 facets</span>
+    <span class="page-num">01 / 03</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 2: STRENGTH + INSIGHTS ============ -->
+<div class="page">
+  <div class="pg-header">
+    <div class="left">
+      <div class="brand">ahee<span class="dot">.</span> career code</div>
+      <div class="meta">career interest report · v0.2</div>
+    </div>
+    <div class="right">
+      <div class="doc-label">document no.</div>
+      <div class="doc-id">ACC-2026-0001</div>
+    </div>
+  </div>
+
+  <div class="p2-section-title">
+    <div class="sec-label">section 02 <span class="dot">●</span> strength &amp; insight</div>
+    <h2>당신의 강점 영역<span class="punct">,</span><br>그리고 <span class="accent">조심해야 할 함정</span><span class="punct">.</span></h2>
+    <p>
+      메인 코드 안에서도 어떤 세부 영역이 더 강한지가 진짜 차별점입니다. 22개 하위 영역(facet) 중
+      당신의 점수가 가장 높은 5가지와, 이를 기반으로 한 4가지 액션 인사이트를 정리했습니다.
+    </p>
+  </div>
+
+  <div class="p2-facets">
+    <div class="sub-label">strength facets <span class="dot">●</span> top 5 of 22</div>
+
+    <div class="p2-facet-row">
+      <div class="p2-facet-rank">01</div>
+      <div class="p2-facet-info">
+        <div class="p2-facet-name">리더십·설득</div>
+        <div class="p2-facet-meta"><span class="code-tag" style="color:var(--code-E)">E</span>기업형 · 4문항</div>
+      </div>
+      <div class="p2-facet-bar"><div class="p2-facet-fill" style="width:91%"></div></div>
+      <div class="p2-facet-score">91<span class="unit">/100</span></div>
+    </div>
+
+    <div class="p2-facet-row">
+      <div class="p2-facet-rank">02</div>
+      <div class="p2-facet-info">
+        <div class="p2-facet-name">추진력·결과</div>
+        <div class="p2-facet-meta"><span class="code-tag" style="color:var(--code-E)">E</span>기업형 · 5문항</div>
+      </div>
+      <div class="p2-facet-bar"><div class="p2-facet-fill" style="width:87%"></div></div>
+      <div class="p2-facet-score">87<span class="unit">/100</span></div>
+    </div>
+
+    <div class="p2-facet-row">
+      <div class="p2-facet-rank">03</div>
+      <div class="p2-facet-info">
+        <div class="p2-facet-name">도전·성취</div>
+        <div class="p2-facet-meta"><span class="code-tag" style="color:var(--code-E)">E</span>기업형 · 4문항</div>
+      </div>
+      <div class="p2-facet-bar"><div class="p2-facet-fill" style="width:82%"></div></div>
+      <div class="p2-facet-score">82<span class="unit">/100</span></div>
+    </div>
+
+    <div class="p2-facet-row">
+      <div class="p2-facet-rank">04</div>
+      <div class="p2-facet-info">
+        <div class="p2-facet-name">협력·관계</div>
+        <div class="p2-facet-meta"><span class="code-tag" style="color:var(--code-S)">S</span>사회형 · 5문항</div>
+      </div>
+      <div class="p2-facet-bar"><div class="p2-facet-fill" style="width:74%"></div></div>
+      <div class="p2-facet-score">74<span class="unit">/100</span></div>
+    </div>
+
+    <div class="p2-facet-row">
+      <div class="p2-facet-rank">05</div>
+      <div class="p2-facet-info">
+        <div class="p2-facet-name">교육·코칭</div>
+        <div class="p2-facet-meta"><span class="code-tag" style="color:var(--code-S)">S</span>사회형 · 4문항</div>
+      </div>
+      <div class="p2-facet-bar"><div class="p2-facet-fill" style="width:68%"></div></div>
+      <div class="p2-facet-score">68<span class="unit">/100</span></div>
+    </div>
+  </div>
+
+  <div class="p2-insights">
+    <div class="sub-label">key insights <span class="dot">●</span> 4 cards</div>
+
+    <div class="p2-insight-grid">
+      <div class="p2-insight-card dark">
+        <div class="icard-label"><span class="num">①</span> STRENGTH · 핵심 재능</div>
+        <div class="icard-title">기회를 결과로 끌어내는 추진력</div>
+        <div class="icard-body">
+          기회를 발견하고 빠르게 실행하는 추진력이 강점입니다. 협상·설득·영업으로 결과를 만드는 힘,
+          그리고 큰 그림과 디테일을 동시에 잡는 균형감이 있습니다.
+        </div>
+      </div>
+
+      <div class="p2-insight-card">
+        <div class="icard-label"><span class="num">②</span> PITFALL · 조심할 점</div>
+        <div class="icard-title">준비보다 실행이 앞서는 경향</div>
+        <div class="icard-body">
+          준비 부족한 상태에서 일을 벌이기 쉽습니다. 디테일을 놓치면 큰 손실로 이어질 수 있어요.
+          속도와 정확성의 균형을 의식적으로 조절해야 합니다.
+        </div>
+      </div>
+
+      <div class="p2-insight-card">
+        <div class="icard-label"><span class="num">③</span> SYNERGY · 시너지 페르소나</div>
+        <div class="icard-title">I형(분석) · C형(체계)이 보완</div>
+        <div class="icard-body">
+          탐구형(I)과 관습형(C) 동료/팀원과 함께할 때 최고 성과가 나옵니다. 당신의 추진력에
+          그들의 분석력과 체계가 더해지면 무적의 조합이 됩니다.
+        </div>
+      </div>
+
+      <div class="p2-insight-card">
+        <div class="icard-label"><span class="num">④</span> GROWTH · 5년 성장 방향</div>
+        <div class="icard-title">P&amp;L 책임을 일찍 잡기</div>
+        <div class="icard-body">
+          30대 초반까지 '한 사업/한 팀'을 책임진 경험을 만들어야 합니다. 손익에 책임지는 자리가
+          E형 인재가 가장 빠르게 성장하는 환경입니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
+    <span>main code · E (기업형) / persona · the driver</span>
+    <span class="page-num">02 / 03</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 3: ACTION ============ -->
+<div class="page">
+  <div class="pg-header">
+    <div class="left">
+      <div class="brand">ahee<span class="dot">.</span> career code</div>
+      <div class="meta">career interest report · v0.2</div>
+    </div>
+    <div class="right">
+      <div class="doc-label">document no.</div>
+      <div class="doc-id">ACC-2026-0001</div>
+    </div>
+  </div>
+
+  <div class="p2-section-title">
+    <div class="sec-label">section 03 <span class="dot">●</span> action guide</div>
+    <h2>이제 <span class="accent">행동</span>으로 옮길 차례<span class="punct">.</span></h2>
+    <p>
+      검사 결과를 자기소개서·면접·커리어 설계에 바로 적용할 수 있도록 구체적인 가이드를 정리했습니다.
+      당신과 가장 잘 맞는 직무 5가지와, 그 자리에 가기 위한 액션 키워드를 함께 보세요.
+    </p>
+  </div>
+
+  <div class="p3-jobs">
+    <div class="sub-label">job match <span class="dot">●</span> top 5</div>
+
+    <div class="p3-job-row">
+      <div class="p3-job-rank">01</div>
+      <div class="p3-job-name">사업개발</div>
+      <div class="p3-job-desc">B2B 영업·파트너십·딜 클로징. 추진력·설득력 강점 직결.</div>
+      <div class="p3-job-bar"><div class="p3-job-fill" style="width:94%"></div></div>
+      <div class="p3-job-pct">94<span class="unit">%</span></div>
+    </div>
+    <div class="p3-job-row">
+      <div class="p3-job-rank">02</div>
+      <div class="p3-job-name">PM (프로덕트 매니저)</div>
+      <div class="p3-job-desc">제품 방향 결정·팀 조율·성과 책임. E+S 조합 최적.</div>
+      <div class="p3-job-bar"><div class="p3-job-fill" style="width:91%"></div></div>
+      <div class="p3-job-pct">91<span class="unit">%</span></div>
+    </div>
+    <div class="p3-job-row">
+      <div class="p3-job-rank">03</div>
+      <div class="p3-job-name">스타트업 멤버</div>
+      <div class="p3-job-desc">초기 멤버로 0→1을 만드는 환경. 추진·도전 강점.</div>
+      <div class="p3-job-bar"><div class="p3-job-fill" style="width:88%"></div></div>
+      <div class="p3-job-pct">88<span class="unit">%</span></div>
+    </div>
+    <div class="p3-job-row">
+      <div class="p3-job-rank">04</div>
+      <div class="p3-job-name">퍼포먼스 마케터</div>
+      <div class="p3-job-desc">광고·전환·매출 직접 책임. 숫자로 증명하는 영역.</div>
+      <div class="p3-job-bar"><div class="p3-job-fill" style="width:85%"></div></div>
+      <div class="p3-job-pct">85<span class="unit">%</span></div>
+    </div>
+    <div class="p3-job-row">
+      <div class="p3-job-rank">05</div>
+      <div class="p3-job-name">B2B 세일즈</div>
+      <div class="p3-job-desc">고객 발굴·협상·딜 매니지먼트. 설득·승부근성 직결.</div>
+      <div class="p3-job-bar"><div class="p3-job-fill" style="width:82%"></div></div>
+      <div class="p3-job-pct">82<span class="unit">%</span></div>
+    </div>
+  </div>
+
+  <div class="p3-action-grid">
+    <div class="p3-action-card">
+      <div class="a-label">● 자소서 키워드</div>
+      <div class="a-title">이 단어들을 본문에 녹이세요</div>
+      <div class="keywords">
+        <span class="kw hot">성과 OO% 향상</span>
+        <span class="kw hot">OO명 리딩</span>
+        <span class="kw">목표 달성</span>
+        <span class="kw">팀 조율</span>
+        <span class="kw">의사결정</span>
+        <span class="kw">실행 책임</span>
+        <span class="kw">설득</span>
+        <span class="kw">협상</span>
+      </div>
+      <div class="body">
+        E형은 '숫자로 증명한 경험'이 가장 강력합니다. 모든 경험을 정량화 가능한 형태로 변환하세요.
+      </div>
+    </div>
+
+    <div class="p3-action-card">
+      <div class="a-label">● 면접 대비 한 줄</div>
+      <div class="a-title">압박 질문 대응법</div>
+      <div class="body">
+        "리더 경험을 'OO명을 이끌었다'로 단순화하지 말고, '어떤 의사결정을 했는지'로 풀어쓰세요."<br><br>
+        성과는 숫자, 과정은 의사결정. 이 두 축으로 정리하면 E형 강점이 가장 잘 드러납니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="p3-advice">
+    <div class="p3-advice-label">final advice <span class="dot">●</span> 한 줄 코칭</div>
+    <div class="p3-advice-text">
+      당신은 <span class="accent">기다리지 않고 만드는 사람</span>입니다.<br>
+      준비 부족을 인정하되, 실행을 멈추지 마세요.<br>
+      디테일을 챙겨줄 한 명의 파트너를 찾는 것 — 그것이 다음 단계입니다.
+    </div>
+    <div class="p3-advice-sign">— ahee career code 2026.05 / ACC-2026-0001</div>
+  </div>
+
+  <div class="pg-footer">
+    <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
+    <span>this report is generated by holland riasec · v0.2</span>
+    <span class="page-num">03 / 03</span>
+  </div>
+</div>
+
+</body>
+</html>
