@@ -3,9 +3,6 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/", "destination": "/v03_test", "permanent": false }
-  ],
   "rewrites": [
     { "source": "/quick", "destination": "/v03_test" },
     { "source": "/full",  "destination": "/v02_test" }

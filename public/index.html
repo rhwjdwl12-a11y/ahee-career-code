@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahee Career Code · 커리어 코드 검사</title>
+<meta name="description" content="홀랜드 RIASEC 이론 기반 Ahee 커리어 코드 검사. 빠른 검사(31문항)와 정밀 검사(122문항) 중 선택하세요.">
+<meta property="og:title" content="Ahee Career Code · 나의 커리어 코드 찾기">
+<meta property="og:description" content="3-5분 빠른 검사 또는 12-17분 정밀 검사로 나의 흥미 유형과 어울리는 직업·인물을 찾아보세요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --surface: #FFFFFF; --ink: #0A0A0A; --ink-2: #3A3A3A;
+    --ink-3: #6B6B6B; --ink-4: #B8B8B8; --line: #ECECEC; --line-2: #DDDDDD;
+    --ahee: #FF3366;
+    --sans: 'Pretendard', -apple-system, sans-serif;
+    --eng: 'Inter Tight', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+  header { border-bottom: 1px solid var(--line); padding: 16px 24px; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .brand { font-family: var(--eng); font-weight: 900; font-size: 16px; letter-spacing: -0.02em; }
+  .brand .dot { color: var(--ahee); }
+  .tag { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; position: relative; }
+
+  /* HERO */
+  .hero { padding: 64px 0 12px; position: relative; }
+  .hero-watermark { position: absolute; top: -10px; right: -40px; font-family: var(--eng); font-weight: 900; font-size: 260px; line-height: 0.8; letter-spacing: -0.06em; color: var(--ink); opacity: 0.035; pointer-events: none; user-select: none; white-space: nowrap; z-index: 0; }
+  .hero-label { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; position: relative; z-index: 1; }
+  .hero-label .dot { color: var(--ahee); margin: 0 6px; }
+  .hero h1 { font-weight: 800; font-size: 52px; line-height: 1.04; letter-spacing: -0.035em; margin-bottom: 22px; position: relative; z-index: 1; }
+  .hero h1 .accent { background: linear-gradient(95deg, var(--ahee), #FF6B9D); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero h1 .punct { color: var(--ahee); }
+  .hero .lead { font-size: 17px; color: var(--ink-2); line-height: 1.65; max-width: 540px; position: relative; z-index: 1; }
+  .hero .lead b { font-weight: 700; color: var(--ink); }
+
+  /* CHOOSE */
+  .choose { padding: 44px 0 24px; }
+  .choose-head { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .choose-head .dot { color: var(--ahee); }
+  .choose-head .line { flex: 1; height: 1px; background: var(--line); }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .opt { position: relative; display: flex; flex-direction: column; text-decoration: none; color: inherit; border: 1px solid var(--line); background: var(--surface); padding: 28px 26px 24px; transition: all 0.2s ease; overflow: hidden; }
+  .opt:hover { transform: translateY(-3px); border-color: var(--ink); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+
+  .opt-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+  .opt-tag .dot { color: var(--ahee); }
+
+  .opt-name { font-family: var(--eng); font-weight: 800; font-size: 13px; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+  .opt-title { font-size: 27px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+  .opt-title .punct { color: var(--ahee); }
+
+  .opt-stats { display: flex; gap: 22px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+  .opt-stats .cell .k { font-family: var(--mono); font-size: 9px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+  .opt-stats .cell .v { font-family: var(--eng); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; }
+  .opt-stats .cell .v .unit { font-family: var(--sans); font-size: 11px; font-weight: 500; color: var(--ink-3); margin-left: 2px; }
+
+  .opt-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; margin-bottom: 18px; flex: 1; }
+  .opt-feats { list-style: none; margin-bottom: 22px; }
+  .opt-feats li { font-size: 12.5px; color: var(--ink-2); padding-left: 18px; position: relative; margin-bottom: 7px; line-height: 1.45; }
+  .opt-feats li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; background: var(--ahee); }
+
+  .opt-cta { display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 20px; background: var(--ink); color: var(--surface); font-family: var(--sans); font-weight: 600; font-size: 14px; letter-spacing: -0.01em; transition: all 0.2s; }
+  .opt-cta .arrow { font-family: var(--mono); font-weight: 400; font-size: 17px; transition: transform 0.2s; }
+  .opt:hover .opt-cta { background: var(--ahee); }
+  .opt:hover .opt-cta .arrow { transform: translateX(4px); }
+
+  /* DARK variant (full test = premium emphasis) */
+  .opt.dark { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .opt.dark .opt-watermark { position: absolute; bottom: -50px; right: -20px; font-family: var(--eng); font-weight: 900; font-size: 200px; line-height: 0.8; color: #fff; opacity: 0.04; pointer-events: none; }
+  .opt.dark .opt-tag { color: rgba(255,255,255,0.55); }
+  .opt.dark .opt-name { color: rgba(255,255,255,0.55); }
+  .opt.dark .opt-stats { border-color: rgba(255,255,255,0.15); }
+  .opt.dark .opt-stats .cell .k { color: rgba(255,255,255,0.5); }
+  .opt.dark .opt-stats .cell .v .unit { color: rgba(255,255,255,0.5); }
+  .opt.dark .opt-desc { color: rgba(255,255,255,0.78); }
+  .opt.dark .opt-feats li { color: rgba(255,255,255,0.82); }
+  .opt.dark .opt-cta { background: var(--ahee); color: #fff; }
+  .opt.dark:hover { border-color: var(--ahee); box-shadow: 0 16px 40px rgba(255,51,102,0.22); }
+  .opt.dark:hover .opt-cta { background: var(--surface); color: var(--ink); }
+
+  .opt .ribbon { position: absolute; top: 0; right: 0; font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--ahee); padding: 4px 12px; z-index: 3; }
+
+  /* FOOT */
+  .foot { padding: 44px 0 64px; }
+  .foot-note { font-size: 12.5px; color: var(--ink-3); line-height: 1.7; border-left: 2px solid var(--ahee); padding-left: 16px; max-width: 600px; }
+  .foot-note b { color: var(--ink-2); font-weight: 600; }
+  .foot-meta { margin-top: 28px; font-family: var(--mono); font-size: 10px; color: var(--ink-4); letter-spacing: 0.06em; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .foot-meta .sep { color: var(--line-2); }
+
+  @media (max-width: 680px) {
+    .hero { padding: 44px 0 8px; }
+    .hero h1 { font-size: 38px; }
+    .hero-watermark { font-size: 160px; right: -20px; }
+    .options { grid-template-columns: 1fr; }
+    .opt-title { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">AHEE CAREER CODE<span class="dot">.</span></div>
+  <div class="tag">RIASEC · interest explorer</div>
+</header>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-watermark">CODE</div>
+    <div class="hero-label">● career persona <span class="dot">/</span> select test</div>
+    <h1>나의 커리어 코드를<br><span class="accent">찾는 방법</span>을 고르세요<span class="punct">.</span></h1>
+    <p class="lead">홀랜드 <b>RIASEC 이론</b> 기반 흥미 탐색 검사. 빠르게 감을 잡는 검사와, 더 깊이 들여다보는 정밀 검사 중 <b>원하는 깊이</b>를 선택할 수 있어요.</p>
+  </section>
+
+  <!-- CHOOSE -->
+  <section class="choose">
+    <div class="choose-head"><span class="dot">●</span> 두 가지 버전 <span class="line"></span> choose your depth</div>
+
+    <div class="options">
+
+      <!-- QUICK -->
+      <a class="opt" href="/quick">
+        <div class="opt-tag"><span class="dot">●</span> quick test / v0.4</div>
+        <div class="opt-name">QUICK</div>
+        <div class="opt-title">빠른 검사<span class="punct">.</span></div>
+        <div class="opt-stats">
+          <div class="cell"><div class="k">questions</div><div class="v">31<span class="unit">문항</span></div></div>
+          <div class="cell"><div class="k">time</div><div class="v">3–5<span class="unit">분</span></div></div>
+        </div>
+        <div class="opt-desc">짧은 시간에 나의 흥미 유형과 어울리는 페르소나·직업·인물을 확인해요. SNS 공유에 딱 좋아요.</div>
+        <ul class="opt-feats">
+          <li>6가지 흥미 코드 + 14개 페르소나 매칭</li>
+          <li>어울리는 직업 · 닮은 인물 추천</li>
+          <li>모바일에서 가볍게, 부담 없이</li>
+        </ul>
+        <div class="opt-cta">빠른 검사 시작 <span class="arrow">→</span></div>
+      </a>
+
+      <!-- FULL -->
+      <a class="opt dark" href="/full">
+        <div class="ribbon">정밀 · 추천</div>
+        <div class="opt-watermark">122</div>
+        <div class="opt-tag"><span class="dot">●</span> full test / v0.3</div>
+        <div class="opt-name">FULL</div>
+        <div class="opt-title">정밀 검사<span class="punct">.</span></div>
+        <div class="opt-stats">
+          <div class="cell"><div class="k">questions</div><div class="v">122<span class="unit">문항</span></div></div>
+          <div class="cell"><div class="k">time</div><div class="v">12–17<span class="unit">분</span></div></div>
+        </div>
+        <div class="opt-desc">22개 세부 영역과 가치관·디지털·글로벌 성향까지 측정하는 정식 진로 검사. 진로 상담·자소서에 활용할 수 있어요.</div>
+        <ul class="opt-feats">
+          <li>6코드 + 22개 세부 facet 정밀 분석</li>
+          <li>가치관 · 위험감수 · 디지털 · 글로벌 척도</li>
+          <li>직업 적합도 · 인물 매칭 · 신뢰도 리포트</li>
+        </ul>
+        <div class="opt-cta">정밀 검사 시작 <span class="arrow">→</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOT -->
+  <section class="foot">
+    <p class="foot-note">
+      두 검사 모두 같은 RIASEC 엔진을 사용하지만, <b>정밀 검사가 더 세밀한 결과</b>를 보여줍니다. 처음이라면 빠른 검사로 감을 잡고, 진지하게 진로를 고민 중이라면 정밀 검사를 추천해요.<br>
+      검사 결과는 <b>익명으로 수집</b>되며 이름·연락처는 받지 않습니다. (응답 시 동의 절차 안내)
+    </p>
+    <div class="foot-meta">
+      <span>ACC-2026-0001</span><span class="sep">·</span>
+      <span>HOLLAND RIASEC</span><span class="sep">·</span>
+      <span>AHEE INTEREST EXPLORER</span>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
