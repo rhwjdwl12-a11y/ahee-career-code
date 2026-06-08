@@ -41,7 +41,7 @@ async def build_report(persona_key: str = "E2"):
         )
         await browser.close()
 
-    print(f"✓ {pdf_out}")
+    print(f"[OK] {pdf_out}")
     return pdf_out
 
 

@@ -677,6 +677,385 @@
     color: rgba(255,255,255,0.4);
     letter-spacing: 0.05em;
   }
+
+  /* ============ NEW PAGE: RIASEC HEXAGON + NCS ============ */
+  /* connector framing line for strength/pitfall */
+  .p2-twoface {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    color: var(--ink-2);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    border-left: 2px solid var(--ahee);
+    padding-left: 4mm;
+    margin: 0 0 5mm;
+  }
+  .p2-twoface b { font-weight: 700; color: var(--ink); }
+
+  .ph-hex-wrap {
+    display: grid;
+    grid-template-columns: 88mm 1fr;
+    gap: 8mm;
+    align-items: center;
+    margin-bottom: 11mm;
+  }
+  .ph-hex {
+    position: relative;
+    width: 84mm;
+    height: 66mm;
+    margin: 0 auto;
+  }
+  .ph-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 17mm;
+    height: 17mm;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+  }
+  .ph-node .nl {
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 14pt;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .ph-node .ns {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 7pt;
+    line-height: 1;
+    margin-top: 0.6mm;
+    opacity: 0.92;
+  }
+  .ph-node .rank {
+    position: absolute;
+    top: -2mm;
+    right: -2mm;
+    width: 5mm;
+    height: 5mm;
+    border-radius: 50%;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 8pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.5px solid var(--line-2);
+  }
+  .ph-dim { opacity: 0.4; }
+  .ph-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 2mm;
+  }
+  .ph-legend .li {
+    display: grid;
+    grid-template-columns: 5mm 1fr auto;
+    gap: 2.5mm;
+    align-items: baseline;
+    padding: 1.5mm 0;
+    border-bottom: 0.4px solid var(--line);
+    font-family: var(--sans);
+  }
+  .ph-legend .li .lt {
+    font-family: var(--eng);
+    font-weight: 800;
+    font-size: 10pt;
+  }
+  .ph-legend .li .ld { font-size: 8.5pt; color: var(--ink-2); font-weight: 500; }
+  .ph-legend .li .lv {
+    font-family: var(--eng);
+    font-weight: 700;
+    font-size: 9.5pt;
+    color: var(--ink);
+  }
+
+  /* NCS competency two-column */
+  .pn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+  }
+  .pn-col { padding: 6mm; border: 0.4px solid var(--line); }
+  .pn-col.strong { background: var(--ink); color: #FFFFFF; border-color: var(--ink); }
+  .pn-col .pn-head {
+    font-family: var(--mono);
+    font-size: 7pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 4mm;
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+  }
+  .pn-col.strong .pn-head { color: rgba(255,255,255,0.55); }
+  .pn-col .pn-head .dot { color: var(--ahee); }
+  .pn-item { padding: 2.5mm 0; border-top: 0.4px solid var(--line); }
+  .pn-col.strong .pn-item { border-top-color: rgba(255,255,255,0.14); }
+  .pn-item:first-of-type { border-top: none; }
+  .pn-item .pn-name {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 10pt;
+    letter-spacing: -0.015em;
+    margin-bottom: 1mm;
+  }
+  .pn-item .pn-desc {
+    font-family: var(--sans);
+    font-size: 8pt;
+    line-height: 1.5;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+  .pn-col.strong .pn-item .pn-desc { color: rgba(255,255,255,0.75); }
+
+  /* job match meta line (자격증 · 기업) */
+  .p3-job-mid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2mm;
+  }
+  .p3-job-meta {
+    font-family: var(--mono);
+    font-size: 6.8pt;
+    color: var(--ink-4);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+  .p3-job-meta b {
+    color: var(--ahee);
+    font-weight: 500;
+  }
+
+  /* ============ PAGE 4: SAMPLE RESUME ============ */
+  .p4-note-top {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    color: var(--ink-2);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    border-left: 2px solid var(--ahee);
+    padding-left: 4mm;
+    margin-bottom: 7mm;
+  }
+  .p4-note-top b { font-weight: 700; color: var(--ink); }
+
+  .p4-resume {
+    border: 0.5px solid var(--line-2);
+    background: #FFFFFF;
+    position: relative;
+    z-index: 1;
+  }
+  .p4-resume-head {
+    background: var(--ink);
+    color: #FFFFFF;
+    padding: 7mm 8mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .p4-resume-head .name {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 19pt;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .p4-resume-head .name .punct { color: var(--ahee); }
+  .p4-resume-head .target {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2.5mm;
+  }
+  .p4-resume-head .code-badge {
+    text-align: right;
+  }
+  .p4-resume-head .code-badge .k {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+  .p4-resume-head .code-badge .v {
+    font-family: var(--eng);
+    font-weight: 900;
+    font-size: 20pt;
+    letter-spacing: -0.04em;
+  }
+  .p4-resume-head .code-badge .v .accent { color: var(--ahee); }
+
+  .p4-resume-body {
+    display: grid;
+    grid-template-columns: 54mm 1fr;
+  }
+  .p4-side {
+    background: var(--bg);
+    padding: 7mm 6mm;
+    border-right: 0.5px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 6mm;
+  }
+  .p4-main {
+    padding: 7mm 7mm;
+    display: flex;
+    flex-direction: column;
+    gap: 6mm;
+  }
+  .p4-block .blk-label {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2.5mm;
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+  }
+  .p4-block .blk-label .dot { color: var(--ahee); }
+
+  .p4-headline {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11pt;
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .p4-headline .accent { color: var(--ahee); }
+
+  .p4-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5mm;
+  }
+  .p4-skill-tags .tag {
+    padding: 1mm 2.5mm;
+    background: #FFFFFF;
+    border: 0.4px solid var(--line-2);
+    font-family: var(--sans);
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+  .p4-skill-tags .tag.hot {
+    background: var(--ahee);
+    color: #FFFFFF;
+    border-color: var(--ahee);
+    font-weight: 600;
+  }
+
+  .p4-side .info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5mm;
+  }
+  .p4-side .info-list .row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5mm;
+  }
+  .p4-side .info-list .row .ik {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .p4-side .info-list .row .iv {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .p4-exp {
+    position: relative;
+    padding-left: 6mm;
+    padding-bottom: 5mm;
+    border-left: 1px solid var(--line-2);
+  }
+  .p4-exp:last-child { padding-bottom: 0; }
+  .p4-exp::before {
+    content: '';
+    position: absolute;
+    left: -1.4mm;
+    top: 0.6mm;
+    width: 2.6mm;
+    height: 2.6mm;
+    background: var(--ahee);
+    border-radius: 50%;
+  }
+  .p4-exp .exp-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.8mm;
+  }
+  .p4-exp .exp-role {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 9.5pt;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .p4-exp .exp-org {
+    font-family: var(--sans);
+    font-size: 8pt;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .p4-exp .exp-period {
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    color: var(--ink-4);
+    letter-spacing: 0.03em;
+  }
+  .p4-exp ul {
+    list-style: none;
+    margin-top: 1.5mm;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2mm;
+  }
+  .p4-exp ul li {
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    line-height: 1.45;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+    padding-left: 4mm;
+    position: relative;
+  }
+  .p4-exp ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.6mm;
+    width: 1.5mm;
+    height: 1.5mm;
+    background: var(--ink);
+  }
+  .p4-exp ul li .num {
+    color: var(--ahee);
+    font-weight: 700;
+  }
 </style>
 </head>
 <body>
@@ -787,7 +1166,7 @@
   <div class="pg-footer">
     <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
     <span>holland riasec · 100 items · 22 facets</span>
-    <span class="page-num">01 / 03</span>
+    <span class="page-num">01 / 04</span>
   </div>
 </div>
 
@@ -870,22 +1249,27 @@
   <div class="p2-insights">
     <div class="sub-label">key insights <span class="dot">●</span> 4 cards</div>
 
+    <div class="p2-twoface">
+      당신의 <b>강점과 함정은 같은 힘의 양면</b>입니다. ①의 추진력이 정렬되면 성과가 되고,
+      어긋나면 ②의 함정으로 나타나요. 없앨 대상이 아니라 <b>조절할 대상</b>입니다.
+    </div>
+
     <div class="p2-insight-grid">
       <div class="p2-insight-card dark">
         <div class="icard-label"><span class="num">①</span> STRENGTH · 핵심 재능</div>
-        <div class="icard-title">기회를 결과로 끌어내는 추진력</div>
+        <div class="icard-title">추진력 — 기회를 결과로 만드는 힘</div>
         <div class="icard-body">
-          기회를 발견하고 빠르게 실행하는 추진력이 강점입니다. 협상·설득·영업으로 결과를 만드는 힘,
-          그리고 큰 그림과 디테일을 동시에 잡는 균형감이 있습니다.
+          기회를 발견하면 망설임 없이 실행해 결과를 만듭니다. 협상·설득으로 사람과 시장을 움직이는
+          이 추진력이 당신의 핵심 동력입니다.
         </div>
       </div>
 
       <div class="p2-insight-card">
-        <div class="icard-label"><span class="num">②</span> PITFALL · 조심할 점</div>
-        <div class="icard-title">준비보다 실행이 앞서는 경향</div>
+        <div class="icard-label"><span class="num">②</span> PITFALL · 같은 힘의 그림자</div>
+        <div class="icard-title">그 추진력이 과열될 때</div>
         <div class="icard-body">
-          준비 부족한 상태에서 일을 벌이기 쉽습니다. 디테일을 놓치면 큰 손실로 이어질 수 있어요.
-          속도와 정확성의 균형을 의식적으로 조절해야 합니다.
+          ②는 ①과 다른 힘이 아닙니다. 추진력이 준비를 앞지르면 디테일을 놓치고, 속도가 정확성을
+          덮어요. 힘을 죽이지 말고 '한 박자 점검'이라는 안전장치를 다세요.
         </div>
       </div>
 
@@ -912,11 +1296,11 @@
   <div class="pg-footer">
     <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
     <span>main code · E (기업형) / persona · the driver</span>
-    <span class="page-num">02 / 03</span>
+    <span class="page-num">02 / 05</span>
   </div>
 </div>
 
-<!-- ============ PAGE 3: ACTION ============ -->
+<!-- ============ PAGE 3: INTEREST MAP + NCS ============ -->
 <div class="page">
   <div class="pg-header">
     <div class="left">
@@ -930,7 +1314,107 @@
   </div>
 
   <div class="p2-section-title">
-    <div class="sec-label">section 03 <span class="dot">●</span> action guide</div>
+    <div class="sec-label">section 03 <span class="dot">●</span> interest map &amp; competency</div>
+    <h2>흥미 지도<span class="punct">,</span> 그리고 <span class="accent">채용 역량</span><span class="punct">.</span></h2>
+    <p>
+      6가지 흥미 코드를 홀랜드 육각형 위에 놓으면 당신의 무게중심이 보입니다. 가까운 코드끼리는
+      서로를 강화하고, 먼 코드는 에너지가 덜 가는 영역이에요. 아래에서 흥미 지도와 채용시장이
+      요구하는 직업기초능력(NCS)을 함께 확인하세요.
+    </p>
+  </div>
+
+  <div class="p2-facets" style="margin-bottom:11mm;">
+    <div class="sub-label">holland hexagon <span class="dot">●</span> riasec map</div>
+    <div class="ph-hex-wrap">
+      <div class="ph-hex">
+        <div class="ph-node" style="left:50%;top:7%;background:var(--code-R)">
+          <span class="nl">R</span><span class="ns">48</span><span class="rank">3</span>
+        </div>
+        <div class="ph-node ph-dim" style="left:87%;top:30%;background:var(--code-I)">
+          <span class="nl">I</span><span class="ns">35</span>
+        </div>
+        <div class="ph-node ph-dim" style="left:87%;top:73%;background:var(--code-A)">
+          <span class="nl">A</span><span class="ns">42</span>
+        </div>
+        <div class="ph-node" style="left:50%;top:95%;background:var(--code-S)">
+          <span class="nl">S</span><span class="ns">62</span><span class="rank">2</span>
+        </div>
+        <div class="ph-node" style="left:13%;top:73%;background:var(--code-E)">
+          <span class="nl">E</span><span class="ns">78</span><span class="rank">1</span>
+        </div>
+        <div class="ph-node ph-dim" style="left:13%;top:30%;background:var(--code-C)">
+          <span class="nl">C</span><span class="ns">28</span>
+        </div>
+      </div>
+      <div class="ph-legend">
+        <div class="li"><span class="lt" style="color:var(--code-E)">E</span><span class="ld">기업형 · 1순위</span><span class="lv">78</span></div>
+        <div class="li"><span class="lt" style="color:var(--code-S)">S</span><span class="ld">사회형 · 2순위</span><span class="lv">62</span></div>
+        <div class="li"><span class="lt" style="color:var(--code-R)">R</span><span class="ld">현실형 · 3순위</span><span class="lv">48</span></div>
+        <div class="li"><span class="lt" style="color:var(--code-A)">A</span><span class="ld">예술형</span><span class="lv">42</span></div>
+        <div class="li"><span class="lt" style="color:var(--code-I)">I</span><span class="ld">탐구형</span><span class="lv">35</span></div>
+        <div class="li"><span class="lt" style="color:var(--code-C)">C</span><span class="ld">관습형</span><span class="lv">28</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p2-insights">
+    <div class="sub-label">ncs 직업기초능력 <span class="dot">●</span> 채용시장 역량</div>
+    <div class="pn-grid">
+      <div class="pn-col strong">
+        <div class="pn-head"><span class="dot">●</span> 강한 역량 · top 3</div>
+        <div class="pn-item">
+          <div class="pn-name">의사소통능력</div>
+          <div class="pn-desc">발표·설득·협상으로 사람과 시장을 움직이는 커뮤니케이션이 자연스럽습니다.</div>
+        </div>
+        <div class="pn-item">
+          <div class="pn-name">대인관계능력</div>
+          <div class="pn-desc">팀을 이끌고 갈등을 조율하며 빠르게 신뢰를 만드는 힘이 강합니다.</div>
+        </div>
+        <div class="pn-item">
+          <div class="pn-name">조직이해능력</div>
+          <div class="pn-desc">경영 흐름과 시장 감각을 읽고 성과 중심으로 판단합니다.</div>
+        </div>
+      </div>
+      <div class="pn-col">
+        <div class="pn-head"><span class="dot">●</span> 보완 역량 · check 3</div>
+        <div class="pn-item">
+          <div class="pn-name">문제해결능력 (정밀 분석)</div>
+          <div class="pn-desc">큰 그림은 빠르나 깊은 분석은 의식적으로 시간을 들여 보완하세요.</div>
+        </div>
+        <div class="pn-item">
+          <div class="pn-name">정보능력 (데이터 검증)</div>
+          <div class="pn-desc">데이터의 정밀 처리·검증이 속도에 밀리기 쉬우니 체크 루틴이 필요합니다.</div>
+        </div>
+        <div class="pn-item">
+          <div class="pn-name">직업윤리 (꾸준함·디테일)</div>
+          <div class="pn-desc">루틴과 디테일의 지속성을 개인 의지가 아닌 시스템으로 받치세요.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
+    <span>holland riasec · ncs 직업기초능력</span>
+    <span class="page-num">03 / 05</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 4: ACTION ============ -->
+<div class="page">
+  <div class="pg-header">
+    <div class="left">
+      <div class="brand">ahee<span class="dot">.</span> career code</div>
+      <div class="meta">career interest report · v0.2</div>
+    </div>
+    <div class="right">
+      <div class="doc-label">document no.</div>
+      <div class="doc-id">ACC-2026-0001</div>
+    </div>
+  </div>
+
+  <div class="p2-section-title">
+    <div class="sec-label">section 04 <span class="dot">●</span> action guide</div>
     <h2>이제 <span class="accent">행동</span>으로 옮길 차례<span class="punct">.</span></h2>
     <p>
       검사 결과를 자기소개서·면접·커리어 설계에 바로 적용할 수 있도록 구체적인 가이드를 정리했습니다.
@@ -944,35 +1428,50 @@
     <div class="p3-job-row">
       <div class="p3-job-rank">01</div>
       <div class="p3-job-name">사업개발</div>
-      <div class="p3-job-desc">B2B 영업·파트너십·딜 클로징. 추진력·설득력 강점 직결.</div>
+      <div class="p3-job-mid">
+        <div class="p3-job-desc">B2B 영업·파트너십·딜 클로징. 추진력·설득력 강점 직결.</div>
+        <div class="p3-job-meta"><b>자격증</b> 무역영어 · GAIQ · 컨벤션기획사 &nbsp;|&nbsp; <b>기업</b> 토스 · 쿠팡 · IT 스타트업</div>
+      </div>
       <div class="p3-job-bar"><div class="p3-job-fill" style="width:94%"></div></div>
       <div class="p3-job-pct">94<span class="unit">%</span></div>
     </div>
     <div class="p3-job-row">
       <div class="p3-job-rank">02</div>
       <div class="p3-job-name">PM (프로덕트 매니저)</div>
-      <div class="p3-job-desc">제품 방향 결정·팀 조율·성과 책임. E+S 조합 최적.</div>
+      <div class="p3-job-mid">
+        <div class="p3-job-desc">제품 방향 결정·팀 조율·성과 책임. E+S 조합 최적.</div>
+        <div class="p3-job-meta"><b>자격증</b> ADsP · SQLD · PMP &nbsp;|&nbsp; <b>기업</b> 네이버 · 카카오 · 배달의민족</div>
+      </div>
       <div class="p3-job-bar"><div class="p3-job-fill" style="width:91%"></div></div>
       <div class="p3-job-pct">91<span class="unit">%</span></div>
     </div>
     <div class="p3-job-row">
       <div class="p3-job-rank">03</div>
       <div class="p3-job-name">스타트업 멤버</div>
-      <div class="p3-job-desc">초기 멤버로 0→1을 만드는 환경. 추진·도전 강점.</div>
+      <div class="p3-job-mid">
+        <div class="p3-job-desc">초기 멤버로 0→1을 만드는 환경. 추진·도전 강점.</div>
+        <div class="p3-job-meta"><b>자격증</b> GAIQ · 정보처리기능사 (경험 &gt; 자격) &nbsp;|&nbsp; <b>기업</b> 시드~시리즈A 스타트업</div>
+      </div>
       <div class="p3-job-bar"><div class="p3-job-fill" style="width:88%"></div></div>
       <div class="p3-job-pct">88<span class="unit">%</span></div>
     </div>
     <div class="p3-job-row">
       <div class="p3-job-rank">04</div>
       <div class="p3-job-name">퍼포먼스 마케터</div>
-      <div class="p3-job-desc">광고·전환·매출 직접 책임. 숫자로 증명하는 영역.</div>
+      <div class="p3-job-mid">
+        <div class="p3-job-desc">광고·전환·매출 직접 책임. 숫자로 증명하는 영역.</div>
+        <div class="p3-job-meta"><b>자격증</b> GAIQ · 페이스북 블루프린트 · 검색광고마케터 &nbsp;|&nbsp; <b>기업</b> 광고대행사 · D2C 브랜드</div>
+      </div>
       <div class="p3-job-bar"><div class="p3-job-fill" style="width:85%"></div></div>
       <div class="p3-job-pct">85<span class="unit">%</span></div>
     </div>
     <div class="p3-job-row">
       <div class="p3-job-rank">05</div>
       <div class="p3-job-name">B2B 세일즈</div>
-      <div class="p3-job-desc">고객 발굴·협상·딜 매니지먼트. 설득·승부근성 직결.</div>
+      <div class="p3-job-mid">
+        <div class="p3-job-desc">고객 발굴·협상·딜 매니지먼트. 설득·승부근성 직결.</div>
+        <div class="p3-job-meta"><b>자격증</b> 무역영어 · 세일즈포스 · CRM 마스터 &nbsp;|&nbsp; <b>기업</b> SaaS · 제조 대기업 영업본부</div>
+      </div>
       <div class="p3-job-bar"><div class="p3-job-fill" style="width:82%"></div></div>
       <div class="p3-job-pct">82<span class="unit">%</span></div>
     </div>
@@ -1019,8 +1518,151 @@
 
   <div class="pg-footer">
     <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
+    <span>main code · E (기업형) / persona · the driver</span>
+    <span class="page-num">04 / 05</span>
+  </div>
+</div>
+
+<!-- ============ PAGE 4: SAMPLE RESUME ============ -->
+<div class="page">
+  <div class="p4-watermark"></div>
+
+  <div class="pg-header">
+    <div class="left">
+      <div class="brand">ahee<span class="dot">.</span> career code</div>
+      <div class="meta">career interest report · v0.2</div>
+    </div>
+    <div class="right">
+      <div class="doc-label">document no.</div>
+      <div class="doc-id">ACC-2026-0001</div>
+    </div>
+  </div>
+
+  <div class="p2-section-title">
+    <div class="sec-label">section 05 <span class="dot">●</span> sample resume</div>
+    <h2>이력서<span class="punct">,</span> <span class="accent">이렇게</span> 써보세요<span class="punct">.</span></h2>
+    <p>
+      당신의 강점이 가장 잘 드러나는 이력서 예시입니다. E형은 '숫자로 증명한 경험'이 핵심이에요.
+      아래 예시의 구조와 표현 방식을 본인의 경험으로 바꿔 채워보세요.
+    </p>
+  </div>
+
+  <div class="p4-note-top">
+    이 예시는 <b>The Driver(기회 추진형 · E2)</b> 페르소나에 맞춘 샘플입니다. ○○ 부분에 본인의 실제 경험·수치를 넣으면 됩니다.
+  </div>
+
+  <div class="p4-resume">
+    <div class="p4-resume-head">
+      <div>
+        <div class="name">○○○<span class="punct">.</span></div>
+        <div class="target">target · 사업개발 / pm / 스타트업</div>
+      </div>
+      <div class="code-badge">
+        <div class="k">career code</div>
+        <div class="v">E<span class="accent">S</span>R</div>
+      </div>
+    </div>
+
+    <div class="p4-resume-body">
+      <div class="p4-side">
+        <div class="p4-block">
+          <div class="blk-label"><span class="dot">●</span> contact</div>
+          <div class="info-list">
+            <div class="row"><span class="ik">email</span><span class="iv">name@email.com</span></div>
+            <div class="row"><span class="ik">phone</span><span class="iv">010-0000-0000</span></div>
+            <div class="row"><span class="ik">link</span><span class="iv">portfolio / linkedin</span></div>
+          </div>
+        </div>
+
+        <div class="p4-block">
+          <div class="blk-label"><span class="dot">●</span> core skills</div>
+          <div class="p4-skill-tags">
+            <span class="tag hot">사업개발</span>
+            <span class="tag hot">B2B 영업</span>
+            <span class="tag">협상·설득</span>
+            <span class="tag">팀 리딩</span>
+            <span class="tag">목표 관리</span>
+            <span class="tag">데이터 분석</span>
+          </div>
+        </div>
+
+        <div class="p4-block">
+          <div class="blk-label"><span class="dot">●</span> education</div>
+          <div class="info-list">
+            <div class="row"><span class="ik">2021 – 2025</span><span class="iv">○○대학교 ○○학과</span></div>
+            <div class="row"><span class="ik">activity</span><span class="iv">창업동아리 대표</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p4-main">
+        <div class="p4-block">
+          <div class="blk-label"><span class="dot">●</span> headline</div>
+          <div class="p4-headline">
+            기회를 <span class="accent">결과로 만드는</span> 사람.<br>
+            ○○명 팀을 이끌고 ○○% 성장을 직접 만든 추진형 인재입니다.
+          </div>
+        </div>
+
+        <div class="p4-block">
+          <div class="blk-label"><span class="dot">●</span> experience</div>
+
+          <div class="p4-exp">
+            <div class="exp-head">
+              <div>
+                <span class="exp-role">사업개발 인턴</span>
+                <span class="exp-org"> · ○○스타트업</span>
+              </div>
+              <span class="exp-period">2024.03 – 2024.12</span>
+            </div>
+            <ul>
+              <li>신규 파트너십 <span class="num">○○건</span> 발굴·계약, 분기 매출 <span class="num">○○% 증가</span> 기여</li>
+              <li>콜드 아웃리치 프로세스를 새로 설계해 응답률 <span class="num">○○%p 개선</span></li>
+            </ul>
+          </div>
+
+          <div class="p4-exp">
+            <div class="exp-head">
+              <div>
+                <span class="exp-role">창업동아리 대표</span>
+                <span class="exp-org"> · ○○대학교</span>
+              </div>
+              <span class="exp-period">2023.03 – 2024.02</span>
+            </div>
+            <ul>
+              <li><span class="num">○○명</span> 규모 팀을 리딩, 교내 창업경진대회 <span class="num">○위</span> 달성</li>
+              <li>외부 후원 <span class="num">○○만 원</span> 유치, 행사 참여자 <span class="num">○○명</span> 동원</li>
+            </ul>
+          </div>
+
+          <div class="p4-exp">
+            <div class="exp-head">
+              <div>
+                <span class="exp-role">마케팅 서포터즈</span>
+                <span class="exp-org"> · ○○브랜드</span>
+              </div>
+              <span class="exp-period">2022.07 – 2022.12</span>
+            </div>
+            <ul>
+              <li>SNS 캠페인 기획·실행, 게시물 도달 <span class="num">○○만</span> 달성</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="p4-block">
+          <div class="blk-label"><span class="dot">●</span> one-line</div>
+          <div class="p4-headline" style="font-size:9.5pt;font-weight:500;color:var(--ink-2);">
+            "준비가 완벽하지 않아도 일단 움직여 결과를 만들고, 그 과정에서 팀을 끌어올립니다."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span class="brand-mini">ahee<span class="dot">.</span> career code</span>
     <span>this report is generated by holland riasec · v0.2</span>
-    <span class="page-num">03 / 03</span>
+    <span class="page-num">05 / 05</span>
   </div>
 </div>
 
