@@ -356,6 +356,18 @@
 .r-exp ul li .num{color:var(--ahee);font-weight:700}
 .r-oneline{font-size:13.5px;color:var(--ink-2);line-height:1.5}
 
+
+/* __AHEE_PDF_DL_CSS__ */
+body.pdf-mode .screen,body.pdf-mode .container{max-width:none !important;padding-left:0 !important;padding-right:0 !important;margin:0 !important;width:100% !important}
+body.pdf-mode .result{max-width:none !important;margin:0 !important;padding:14px 16px 0 16px !important}
+.pdf-dl-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:0 0 18px;padding:15px;background:var(--ahee);color:#fff;border:none;font-family:var(--sans);font-weight:700;font-size:15px;letter-spacing:-.01em;cursor:pointer;transition:filter .15s}
+.pdf-dl-btn .ic{font-family:var(--mono);font-weight:400}
+.pdf-dl-btn:hover{filter:brightness(.95)}
+.pdf-dl-btn:disabled{opacity:.6;cursor:default}
+body.pdf-mode .variants,body.pdf-mode .actions,body.pdf-mode .result-cta,body.pdf-mode footer,body.pdf-mode .submit-banner,body.pdf-mode .pdf-dl-btn,body.pdf-mode .diff-note{display:none !important}
+body.pdf-mode .accent{background:none !important;-webkit-background-clip:initial !important;background-clip:initial !important;-webkit-text-fill-color:var(--ahee) !important;color:var(--ahee) !important}
+body.pdf-mode .section,body.pdf-mode .card,body.pdf-mode .detail-card,body.pdf-mode .resume-box,body.pdf-mode .ncs-col,body.pdf-mode .person-card,body.pdf-mode .match-item{page-break-inside:avoid}
+
 </style>
 </head>
 <body>
@@ -498,6 +510,7 @@
       </div>
 
       <div class="submit-banner" id="submit-banner" style="display:none"></div>
+        <button class="pdf-dl-btn" id="pdf-dl-btn"><span class="ic">↓</span> 결과 PDF 다운로드</button>
 
       <div class="variants">
         <button class="variant-btn active" data-theme="dark">DARK</button>
@@ -1562,5 +1575,32 @@ $('restart-btn').addEventListener('click', function() {
   showScreen('screen-intro');
 });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+<script>/* __AHEE_PDF_DL__ */
+(function(){
+  function go(){
+    var btn=document.getElementById('pdf-dl-btn'); if(!btn) return;
+    btn.addEventListener('click', function(){
+      var el=document.querySelector('.result'); if(!el) return;
+      if(typeof html2pdf==='undefined'){ alert('PDF 모듈을 불러오는 중입니다. 잠시 후 다시 눌러주세요.'); return; }
+      var key='result'; var wm=document.getElementById('card-watermark');
+      if(wm && wm.textContent) key=wm.textContent.trim();
+      var prev=btn.innerHTML; btn.disabled=true; btn.innerHTML='PDF 만드는 중\u2026';
+      document.body.classList.add('pdf-mode');
+      try{ window.scrollTo(0,0); }catch(e){}
+      var opt={ margin:[6,6,8,6], filename:'Ahee_커리어코드_'+key+'.pdf',
+        image:{type:'jpeg',quality:0.96},
+        html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:760,scrollX:0,scrollY:0,x:0,y:0},
+        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+        pagebreak:{mode:['css','legacy']} };
+      function done(){ document.body.classList.remove('pdf-mode'); btn.disabled=false; btn.innerHTML=prev; }
+      html2pdf().set(opt).from(el).save().then(done).catch(function(err){ if(window.console)console.error('[pdf]',err); done(); alert('PDF 저장 중 문제가 생겼어요. 다시 시도해주세요.'); });
+    });
+  }
+  if(document.readyState!=='loading') go(); else document.addEventListener('DOMContentLoaded', go);
+})();
+</script>
+
 </body>
 </html>
