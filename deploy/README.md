@@ -57,9 +57,10 @@ git push -u origin main
 6. ✅ 완료! `https://ahee-career-code-xxx.vercel.app` 형태의 URL 받음
 
 ### 배포된 페이지
-- `/`        → 자동으로 v03 퀵 검사로 리다이렉트
-- `/quick`   → v03 퀵 검사 (31문항)
-- `/full`    → v02 풀 검사 (122문항)
+- `/`        → 검사 선택 랜딩 (빠른·정밀·행동스타일)
+- `/quick`   → v03 퀵 흥미검사 (31문항)
+- `/full`    → v02 풀 흥미검사 (122문항)
+- `/disc`    → DISC 행동스타일 검사 (40블록 강제선택)
 
 ---
 

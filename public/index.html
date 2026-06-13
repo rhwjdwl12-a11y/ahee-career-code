@@ -49,7 +49,7 @@
   .choose-head .dot { color: var(--ahee); }
   .choose-head .line { flex: 1; height: 1px; background: var(--line); }
 
-  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 
   .opt { position: relative; display: flex; flex-direction: column; text-decoration: none; color: inherit; border: 1px solid var(--line); background: var(--surface); padding: 28px 26px 24px; transition: all 0.2s ease; overflow: hidden; }
   .opt:hover { transform: translateY(-3px); border-color: var(--ink); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
@@ -122,12 +122,12 @@
     <div class="hero-watermark">CODE</div>
     <div class="hero-label">● career persona <span class="dot">/</span> select test</div>
     <h1>나의 커리어 코드를<br><span class="accent">찾는 방법</span>을 고르세요<span class="punct">.</span></h1>
-    <p class="lead">홀랜드 <b>RIASEC 이론</b> 기반 흥미 탐색 검사. 빠르게 감을 잡는 검사와, 더 깊이 들여다보는 정밀 검사 중 <b>원하는 깊이</b>를 선택할 수 있어요.</p>
+    <p class="lead">홀랜드 <b>RIASEC 흥미검사</b>로 "무엇을 좋아하는지", <b>DISC 행동스타일 검사</b>로 "어떻게 일하는지"를 봅니다. 빠른·정밀 흥미검사와 행동스타일 검사 중 <b>원하는 것</b>을 골라보세요.</p>
   </section>
 
   <!-- CHOOSE -->
   <section class="choose">
-    <div class="choose-head"><span class="dot">●</span> 두 가지 버전 <span class="line"></span> choose your depth</div>
+    <div class="choose-head"><span class="dot">●</span> 세 가지 검사 <span class="line"></span> interest & behavior</div>
 
     <div class="options">
 
@@ -169,13 +169,31 @@
         <div class="opt-cta">정밀 검사 시작 <span class="arrow">→</span></div>
       </a>
 
+      <!-- DISC -->
+      <a class="opt" href="/disc">
+        <div class="opt-tag"><span class="dot">●</span> behavior test / v0.1</div>
+        <div class="opt-name">DISC</div>
+        <div class="opt-title">행동스타일<span class="punct">.</span></div>
+        <div class="opt-stats">
+          <div class="cell"><div class="k">blocks</div><div class="v">40<span class="unit">블록</span></div></div>
+          <div class="cell"><div class="k">time</div><div class="v">6–9<span class="unit">분</span></div></div>
+        </div>
+        <div class="opt-desc">흥미가 아니라 "일할 때 어떻게 움직이는가". 주도·사교·안정·신중 4가지 스타일을 강제선택으로 가려냅니다.</div>
+        <ul class="opt-feats">
+          <li>D · I · S · C 4축 + 12블렌드 해석</li>
+          <li>강점 · 소통법 · 협업 궁합 · 스트레스 신호</li>
+          <li>흥미(RIASEC) × 행동(DISC) 교차 해석</li>
+        </ul>
+        <div class="opt-cta">행동스타일 검사 시작 <span class="arrow">→</span></div>
+      </a>
+
     </div>
   </section>
 
   <!-- FOOT -->
   <section class="foot">
     <p class="foot-note">
-      두 검사 모두 같은 RIASEC 엔진을 사용하지만, <b>정밀 검사가 더 세밀한 결과</b>를 보여줍니다. 처음이라면 빠른 검사로 감을 잡고, 진지하게 진로를 고민 중이라면 정밀 검사를 추천해요.<br>
+      빠른·정밀 검사는 <b>RIASEC 흥미</b>를, DISC 검사는 <b>행동스타일</b>을 측정합니다. 흥미검사로 방향을 잡고 행동스타일까지 더하면, 결과 화면에서 <b>흥미 × 행동 교차 해석</b>까지 받아볼 수 있어요.<br>
       검사 결과는 <b>익명으로 수집</b>되며 이름·연락처는 받지 않습니다. (응답 시 동의 절차 안내)
     </p>
     <div class="foot-meta">

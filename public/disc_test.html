@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahee Behavior Style · 행동스타일 검사 (DISC)</title>
+<meta name="description" content="공개 도메인 DISC 4요인 모델 기반 Ahee 행동스타일 검사. 강제선택 40블록으로 D·I·S·C 스타일과 RIASEC 흥미 교차 해석을 받아보세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --surface: #FFFFFF; --ink: #0A0A0A; --ink-2: #3A3A3A;
+    --ink-3: #6B6B6B; --ink-4: #B8B8B8; --line: #ECECEC; --line-2: #DDDDDD;
+    --ahee: #FF3366;
+    --d: #E85A4F; --i: #F39C12; --s: #2EBA6A; --c: #4F77E8;
+    --sans: 'Pretendard', -apple-system, sans-serif;
+    --eng: 'Inter Tight', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  header { border-bottom: 1px solid var(--line); padding: 16px 24px; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .brand { font-family: var(--eng); font-weight: 900; font-size: 16px; letter-spacing: -0.02em; }
+  .brand .dot { color: var(--ahee); }
+  .tag { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* INTRO */
+  .intro { padding: 56px 0 80px; }
+  .intro-label { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+  .intro-label .dot { color: var(--ahee); margin: 0 6px; }
+  .intro h1 { font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.035em; margin-bottom: 24px; }
+  .intro h1 .accent { background: linear-gradient(95deg, var(--ahee), #FF6B9D); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .intro h1 .punct { color: var(--ahee); }
+  .intro .lead { font-size: 17px; color: var(--ink-2); line-height: 1.65; max-width: 560px; margin-bottom: 32px; }
+  .intro .lead b { font-weight: 700; color: var(--ink); }
+
+  .style-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 36px 0; }
+  .style-mini { background: #0A0A0A; padding: 16px 14px; display: flex; flex-direction: column; gap: 8px; color: #fff; position: relative; overflow: hidden; }
+  .style-mini .sm-code { font-family: var(--eng); font-size: 30px; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+  .style-mini .sm-en { font-size: 11px; font-weight: 700; opacity: 0.92; }
+  .style-mini .sm-ko { font-size: 11px; opacity: 0.6; }
+  .style-mini.d { background: linear-gradient(150deg, #2A0D0A, #E85A4F); }
+  .style-mini.i { background: linear-gradient(150deg, #2A1A02, #F39C12); }
+  .style-mini.s { background: linear-gradient(150deg, #06251A, #2EBA6A); }
+  .style-mini.c { background: linear-gradient(150deg, #0A1430, #4F77E8); }
+  @media (max-width: 560px) { .style-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 28px; background: var(--ink); color: var(--surface); border: none; font-family: var(--sans); font-weight: 600; font-size: 14px; letter-spacing: -0.01em; cursor: pointer; transition: all 0.2s; }
+  .btn:hover { background: var(--ahee); transform: translateY(-1px); }
+  .btn .arrow { font-family: var(--mono); font-weight: 400; font-size: 16px; }
+  .btn.ghost { background: transparent; color: var(--surface); border: 1px solid rgba(255,255,255,0.3); }
+  .btn.ghost:hover { background: var(--surface); color: var(--ink); border-color: var(--surface); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+  .btn:disabled:hover { background: var(--ink); transform: none; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 32px; }
+  .stats .cell .k { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .stats .cell .v { font-family: var(--eng); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+  .stats .cell .v .unit { font-size: 11px; color: var(--ink-3); margin-left: 3px; }
+
+  /* DISCLAIMER */
+  .disclaimer { margin: 24px 0 28px; padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--ahee); }
+  .disclaimer .dc-title { font-family: var(--mono); font-size: 11px; color: var(--ahee); letter-spacing: 0.08em; margin-bottom: 14px; font-weight: 600; }
+  .disclaimer .dc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+  .disclaimer .dc-item { font-size: 12px; line-height: 1.55; }
+  .disclaimer .dc-item .dc-k { font-family: var(--mono); font-size: 10px; color: var(--ink); letter-spacing: 0.05em; margin-bottom: 3px; font-weight: 600; }
+  .disclaimer .dc-item .dc-v { color: var(--ink-3); }
+  @media (max-width: 600px) { .disclaimer .dc-grid { grid-template-columns: 1fr; } }
+
+  /* META FORM */
+  .meta-form { margin: 0 0 20px; padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); }
+  .meta-form .mf-title { font-family: var(--mono); font-size: 11px; color: var(--ink); letter-spacing: 0.08em; margin-bottom: 16px; font-weight: 600; }
+  .meta-form .mf-title .mf-opt { color: var(--ink-3); font-weight: 400; margin-left: 6px; }
+  .mf-grid { display: grid; gap: 14px; }
+  .mf-field { display: grid; gap: 8px; }
+  .mf-label { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .mf-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mf-choice { padding: 7px 13px; background: var(--surface); border: 1px solid var(--line); font-family: var(--sans); font-size: 12px; color: var(--ink-2); cursor: pointer; transition: all 0.15s; }
+  .mf-choice:hover { border-color: var(--ink-3); }
+  .mf-choice.selected { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+  .mf-text input { width: 100%; padding: 9px 12px; border: 1px solid var(--line); background: var(--surface); font-family: var(--sans); font-size: 12.5px; color: var(--ink); }
+  .mf-text input:focus { outline: none; border-color: var(--ahee); }
+
+  /* CONSENT */
+  .consent { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 18px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); cursor: pointer; font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+  .consent input[type="checkbox"] { width: 15px; height: 15px; margin-top: 3px; accent-color: var(--ahee); cursor: pointer; flex-shrink: 0; }
+  .consent strong { color: var(--ink); }
+  .link-btn { background: none; border: none; color: var(--ahee); cursor: pointer; font-family: var(--sans); font-size: 12px; padding: 0; margin-left: 4px; text-decoration: underline; }
+  .link-btn:hover { color: var(--ink); }
+
+  /* TEST */
+  .test { padding: 32px 0 80px; }
+  .test-header { margin-bottom: 28px; }
+  .test-header .label { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .test-header h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 8px; }
+  .test-header p { color: var(--ink-3); font-size: 14px; }
+  .fc-guide { margin-top: 14px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-left: 2px solid var(--ahee); font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .fc-guide b { color: var(--ink); }
+
+  .progress-wrap { position: sticky; top: 56px; background: rgba(250,250,248,0.96); backdrop-filter: blur(10px); padding: 12px 0; margin-bottom: 18px; border-bottom: 1px solid var(--line); z-index: 50; }
+  .progress-inner { display: flex; align-items: center; gap: 12px; }
+  .progress-label { font-family: var(--mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.05em; min-width: 70px; }
+  .progress-bar { flex: 1; height: 2px; background: var(--line); position: relative; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--ahee); width: 0%; transition: width 0.3s; }
+  .progress-count { font-family: var(--mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.05em; min-width: 56px; text-align: right; }
+
+  /* FORCED-CHOICE BLOCK */
+  .fc-block { padding: 20px 0 22px; border-bottom: 1px solid var(--line); }
+  .fc-block:last-child { border-bottom: none; }
+  .fc-block.done { opacity: 0.62; }
+  .fc-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .fc-num { font-family: var(--mono); font-size: 10px; color: var(--ink-4); letter-spacing: 0.08em; }
+  .fc-legend { display: flex; gap: 14px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.04em; }
+  .fc-legend .lg-most { color: var(--ahee); }
+  .fc-legend .lg-least { color: var(--ink-3); }
+  .fc-rows { display: grid; gap: 7px; }
+  .fc-row { display: grid; grid-template-columns: 40px 1fr 40px; gap: 10px; align-items: center; }
+  .fc-stmt { font-size: 15.5px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); padding: 9px 12px; border: 1px solid var(--line); background: var(--surface); transition: all 0.12s; }
+  .fc-row.is-most .fc-stmt { border-color: var(--ahee); background: rgba(255,51,102,0.05); }
+  .fc-row.is-least .fc-stmt { border-color: var(--line-2); background: #F4F4F2; color: var(--ink-3); }
+  .fc-btn { height: 38px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ink-4); transition: all 0.12s; display: flex; align-items: center; justify-content: center; }
+  .fc-btn:hover { border-color: var(--ink-3); color: var(--ink-2); }
+  .fc-btn.most.on { background: var(--ahee); border-color: var(--ahee); color: #fff; }
+  .fc-btn.least.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .submit-wrap { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .submit-status { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  .submit-status.warn { color: var(--ahee); }
+
+  /* RESULT */
+  .result { padding: 40px 0 80px; }
+  .result-header { text-align: center; margin-bottom: 28px; }
+  .result-header .eyebrow { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .result-header .eyebrow .dot { color: var(--ahee); margin: 0 6px; }
+  .result-header h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.025em; }
+  .differentiation-note { margin: 12px auto 0; max-width: 480px; padding: 10px 14px; background: rgba(255,51,102,0.06); border: 1px dashed var(--ahee); font-size: 12px; line-height: 1.5; color: var(--ink-2); text-align: left; }
+  .differentiation-note .dn-k { font-family: var(--mono); font-size: 10px; color: var(--ahee); font-weight: 700; letter-spacing: 0.06em; margin-right: 6px; }
+
+  .submit-banner { margin: -4px auto 18px; max-width: 480px; padding: 9px 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-align: center; border: 1px solid var(--line); background: var(--surface); color: var(--ink-3); }
+  .submit-banner.success { color: #2EBA6A; border-color: rgba(46,186,106,0.3); background: rgba(46,186,106,0.05); }
+  .submit-banner.error { color: #E85A4F; border-color: rgba(232,90,79,0.3); background: rgba(232,90,79,0.05); }
+  .submit-banner.skip { color: var(--ink-3); }
+
+  .pdf-dl-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin: 0 0 18px; padding: 15px; background: var(--ahee); color: #fff; border: none; font-family: var(--sans); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; cursor: pointer; transition: filter 0.15s; }
+  .pdf-dl-btn .ic { font-family: var(--mono); font-weight: 400; }
+  .pdf-dl-btn:hover { filter: brightness(0.95); }
+  .pdf-dl-btn:disabled { opacity: 0.6; cursor: default; }
+
+  /* CARD 9:16 */
+  .card-wrap { display: flex; justify-content: center; padding: 8px 0 32px; }
+  .card { width: 100%; max-width: 380px; aspect-ratio: 9/16; background: var(--ink); color: var(--surface); padding: 32px 28px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+  .card-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--eng); font-weight: 900; font-size: 300px; line-height: 0.8; letter-spacing: -0.08em; opacity: 0.06; pointer-events: none; white-space: nowrap; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 2; }
+  .card-brand { font-family: var(--eng); font-weight: 900; font-size: 13px; letter-spacing: -0.02em; }
+  .card-brand .dot { color: var(--ahee); }
+  .card-no { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; }
+  .card-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+  .card-cat { font-family: var(--mono); font-size: 11px; color: var(--ahee); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .card-name { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 6px; }
+  .card-name .accent { color: var(--ahee); }
+  .card-en { font-family: var(--sans); font-weight: 500; font-size: 15px; letter-spacing: -0.01em; color: rgba(255,255,255,0.6); margin-bottom: 18px; }
+  .card-slogan { font-size: 15px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.55; color: rgba(255,255,255,0.88); margin-bottom: 22px; }
+  /* mini 4-axis bar inside card */
+  .card-axes { display: grid; gap: 8px; margin-bottom: 22px; }
+  .ca-row { display: grid; grid-template-columns: 58px 1fr 30px; gap: 8px; align-items: center; font-family: var(--mono); font-size: 9.5px; color: rgba(255,255,255,0.75); letter-spacing: 0.03em; }
+  .ca-track { height: 5px; background: rgba(255,255,255,0.14); position: relative; overflow: hidden; }
+  .ca-fill { position: absolute; inset: 0 auto 0 0; }
+  .ca-fill.d { background: var(--d); } .ca-fill.i { background: var(--i); }
+  .ca-fill.s { background: var(--s); } .ca-fill.c { background: var(--c); }
+  .card-traits { display: flex; flex-wrap: wrap; gap: 6px; }
+  .card-trait { padding: 5px 10px; background: rgba(255,255,255,0.08); font-size: 11px; color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.15); }
+  .card-bottom { position: relative; z-index: 2; }
+  .card-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 18px 0 14px; }
+  .card-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
+  .card-meta .item .k { color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 4px; }
+  .card-meta .item .v { color: rgba(255,255,255,0.9); font-weight: 500; }
+  .card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+
+  .actions { display: flex; gap: 10px; justify-content: center; margin-bottom: 44px; flex-wrap: wrap; }
+  .action-btn { padding: 12px 18px; background: var(--surface); border: 1px solid var(--line); font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--ink); cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .action-btn:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .action-btn .icon { font-family: var(--mono); font-size: 14px; }
+
+  .section { margin-bottom: 44px; }
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .section h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px; }
+
+  /* full 4-axis graph */
+  .axis-graph { display: grid; gap: 12px; }
+  .ag-row { display: grid; grid-template-columns: 96px 1fr 92px; gap: 12px; align-items: center; }
+  .ag-name { font-size: 13.5px; font-weight: 700; }
+  .ag-name .ag-en { font-family: var(--mono); font-size: 10px; color: var(--ink-3); font-weight: 400; display: block; margin-top: 2px; }
+  .ag-track { height: 10px; background: var(--line); position: relative; overflow: hidden; }
+  .ag-fill { position: absolute; inset: 0 auto 0 0; width: 0; transition: width 0.8s ease; }
+  .ag-fill.d { background: var(--d); } .ag-fill.i { background: var(--i); }
+  .ag-fill.s { background: var(--s); } .ag-fill.c { background: var(--c); }
+  .ag-val { font-family: var(--mono); font-size: 11px; color: var(--ink-2); text-align: right; }
+  .ag-val b { font-family: var(--eng); font-size: 15px; color: var(--ink); }
+  .ag-row.top .ag-name { color: var(--ahee); }
+
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .detail-card { padding: 20px; background: var(--surface); border: 1px solid var(--line); }
+  .detail-label { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .detail-title { font-size: 15px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 8px; }
+  .detail-body { font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .detail-fix { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 12px; line-height: 1.55; color: var(--ink); }
+  .detail-fix::before { content: "● 보완 팁 "; color: var(--ahee); font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 0.05em; }
+  @media (max-width: 600px) { .detail-grid { grid-template-columns: 1fr; } }
+
+  .match-list { display: grid; gap: 6px; }
+  .match-item { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; align-items: center; }
+  .match-name { font-weight: 500; }
+  .match-name .pct { font-family: var(--mono); font-size: 10px; color: var(--ink-3); margin-left: 6px; }
+  .match-bar { width: 80px; height: 4px; background: var(--line); position: relative; overflow: hidden; }
+  .match-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--ahee); width: 0; transition: width 0.8s; }
+
+  /* CROSS (DISC x RIASEC) */
+  .cross-box { padding: 0; }
+  .cross-lead { font-size: 14px; color: var(--ink-3); margin-bottom: 18px; line-height: 1.6; max-width: 560px; }
+  .cross-lead .accent { color: var(--ahee); font-weight: 700; }
+  .cross-card { padding: 22px 22px; background: var(--ink); color: #fff; border-left: 3px solid var(--ahee); margin-bottom: 16px; }
+  .cross-card .cc-k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+  .cross-card .cc-combo { font-family: var(--eng); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .cross-card .cc-combo .x { color: var(--ahee); margin: 0 6px; }
+  .cross-card .cc-body { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.9); }
+  .cross-pick { padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); }
+  .cross-pick .cp-q { font-size: 13.5px; color: var(--ink-2); margin-bottom: 12px; line-height: 1.55; }
+  .cross-pick .cp-q b { color: var(--ink); }
+  .cp-choices { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .cp-choice { padding: 8px 13px; background: var(--surface); border: 1px solid var(--line); font-family: var(--sans); font-size: 12.5px; color: var(--ink-2); cursor: pointer; transition: all 0.15s; }
+  .cp-choice:hover { border-color: var(--ink-3); }
+  .cp-choice.selected { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .cross-cta { margin-top: 14px; font-size: 12.5px; color: var(--ink-3); }
+  .cross-cta a { color: var(--ahee); font-weight: 600; text-decoration: none; }
+  .cross-cta a:hover { text-decoration: underline; }
+
+  /* RELIABILITY */
+  .reliability { padding: 24px 20px; background: var(--surface); border: 1px solid var(--line); }
+  .reliability .r-title { font-family: var(--mono); font-size: 11px; color: var(--ink); letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 700; }
+  .reliability .r-lead { font-size: 12.5px; color: var(--ink-3); line-height: 1.6; margin-bottom: 16px; }
+  .reliability table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .reliability th, .reliability td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+  .reliability th { font-family: var(--mono); font-size: 9px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+  .reliability td { color: var(--ink-2); }
+  .reliability td .v { font-family: var(--eng); font-weight: 700; color: var(--ink); }
+  .reliability td .src { font-size: 10px; color: var(--ink-4); }
+  .reliability .r-foot { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 11.5px; line-height: 1.55; color: var(--ink-3); }
+  .reliability .r-foot strong { color: var(--ahee); }
+
+  .result-cta { margin-top: 32px; padding: 36px 24px; background: var(--ink); color: var(--surface); text-align: center; }
+  .result-cta h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 10px; }
+  .result-cta p { color: rgba(255,255,255,0.7); margin-bottom: 24px; font-size: 14px; }
+  .result-cta .btn { background: var(--ahee); }
+  .result-cta .btn:hover { background: var(--surface); color: var(--ink); }
+
+  /* MODAL */
+  .modal { display: none; position: fixed; inset: 0; z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+  .modal.active { display: flex; }
+  .modal-backdrop { position: absolute; inset: 0; background: rgba(10,10,10,0.55); backdrop-filter: blur(4px); }
+  .modal-card { position: relative; max-width: 520px; width: 100%; max-height: 85vh; overflow-y: auto; background: var(--surface); padding: 32px 28px; border: 1px solid var(--line); }
+  .modal-close { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 24px; color: var(--ink-3); cursor: pointer; line-height: 1; }
+  .modal-close:hover { color: var(--ink); }
+  .modal-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--ahee); letter-spacing: 0.1em; margin-bottom: 8px; text-transform: uppercase; }
+  .modal-card h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 16px; }
+  .modal-body { font-size: 12.5px; line-height: 1.7; color: var(--ink-2); margin-bottom: 22px; }
+  .modal-body p { margin-bottom: 12px; }
+  .modal-body strong { color: var(--ink); }
+
+  footer { padding: 20px 24px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 11px; font-family: var(--mono); display: flex; justify-content: space-between; letter-spacing: 0.05em; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 600px) {
+    .intro h1 { font-size: 32px; }
+    .card { max-width: 100%; }
+    .fc-stmt { font-size: 14.5px; padding: 8px 10px; }
+    .fc-row { grid-template-columns: 36px 1fr 36px; gap: 7px; }
+    .ag-row { grid-template-columns: 78px 1fr 78px; gap: 8px; }
+  }
+
+  /* PDF MODE */
+  body.pdf-mode .screen, body.pdf-mode .container { max-width: none !important; padding-left: 0 !important; padding-right: 0 !important; margin: 0 !important; width: 100% !important; }
+  body.pdf-mode .result { max-width: none !important; margin: 0 !important; padding: 14px 16px 0 16px !important; }
+  body.pdf-mode .actions, body.pdf-mode .result-cta, body.pdf-mode footer, body.pdf-mode .submit-banner, body.pdf-mode .pdf-dl-btn { display: none !important; }
+  body.pdf-mode .accent { -webkit-text-fill-color: var(--ahee) !important; color: var(--ahee) !important; }
+  body.pdf-mode .section, body.pdf-mode .card, body.pdf-mode .detail-card, body.pdf-mode .cross-card, body.pdf-mode .match-item { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">ahee<span class="dot">.</span> behavior style</div>
+  <div class="tag">DISC · behavior explorer</div>
+</header>
+
+<!-- INTRO -->
+<section class="screen active" id="screen-intro">
+  <div class="container">
+    <div class="intro">
+      <div class="intro-label">behavior style <span class="dot">●</span> D · I · S · C</div>
+      <h1>당신은 일할 때<br><span class="accent">어떻게 움직이나요</span><span class="punct">.</span></h1>
+      <p class="lead">
+        흥미가 <b>"무엇을 좋아하는가"</b>라면, 행동스타일은 <b>"어떻게 행동하는가"</b>입니다.
+        공개 도메인 <b>DISC 4요인 모델</b>로 당신의 주도·사교·안정·신중 스타일을 찾고,
+        커리어 코드(RIASEC) 흥미와 <b>교차 해석</b>해 드려요.
+      </p>
+
+      <div class="style-grid">
+        <div class="style-mini d"><div class="sm-code">D</div><div class="sm-en">The Captain</div><div class="sm-ko">주도형</div></div>
+        <div class="style-mini i"><div class="sm-code">I</div><div class="sm-en">The Spark</div><div class="sm-ko">사교형</div></div>
+        <div class="style-mini s"><div class="sm-code">S</div><div class="sm-en">The Anchor</div><div class="sm-ko">안정형</div></div>
+        <div class="style-mini c"><div class="sm-code">C</div><div class="sm-en">The Architect</div><div class="sm-ko">신중형</div></div>
+      </div>
+
+      <div class="stats">
+        <div class="cell"><div class="k">blocks</div><div class="v">40<span class="unit">블록</span></div></div>
+        <div class="cell"><div class="k">method</div><div class="v">강제선택</div></div>
+        <div class="cell"><div class="k">time</div><div class="v">6-9<span class="unit">분</span></div></div>
+      </div>
+
+      <div class="disclaimer">
+        <div class="dc-title">● 검사 전 안내</div>
+        <div class="dc-grid">
+          <div class="dc-item"><div class="dc-k">정직한 응답</div><div class="dc-v">"이상적인 나"가 아닌 "평소 일할 때의 나"로 답할 때 가장 정확합니다.</div></div>
+          <div class="dc-item"><div class="dc-k">강제선택 방식</div><div class="dc-v">네 가지 중 가장 나같은 것·가장 아닌 것을 고릅니다. 좋고 나쁨이 아닌 '스타일'입니다.</div></div>
+          <div class="dc-item"><div class="dc-k">공개 도메인 기반</div><div class="dc-v">Marston(1928) DISC 모델 기반 Ahee 자체 제작. 상용 검사와 무관합니다.</div></div>
+          <div class="dc-item"><div class="dc-k">참고용</div><div class="dc-v">진로·협업 탐색 보조 자료이며, 의학적·임상적 진단이 아닙니다.</div></div>
+        </div>
+      </div>
+
+      <div class="meta-form">
+        <div class="mf-title">● 익명 응답자 정보 <span class="mf-opt">(통계용 · 모두 선택사항)</span></div>
+        <div class="mf-grid">
+          <div class="mf-field">
+            <label class="mf-label">성별</label>
+            <div class="mf-choices">
+              <button type="button" class="mf-choice" data-field="gender" data-value="F">여성</button>
+              <button type="button" class="mf-choice" data-field="gender" data-value="M">남성</button>
+              <button type="button" class="mf-choice" data-field="gender" data-value="X">선택안함</button>
+            </div>
+          </div>
+          <div class="mf-field">
+            <label class="mf-label">학년·소속</label>
+            <div class="mf-choices">
+              <button type="button" class="mf-choice" data-field="grade" data-value="고1-2">고1-2</button>
+              <button type="button" class="mf-choice" data-field="grade" data-value="고3">고3</button>
+              <button type="button" class="mf-choice" data-field="grade" data-value="대1-2">대1-2</button>
+              <button type="button" class="mf-choice" data-field="grade" data-value="대3-4">대3-4</button>
+              <button type="button" class="mf-choice" data-field="grade" data-value="졸업·취준">졸업·취준</button>
+              <button type="button" class="mf-choice" data-field="grade" data-value="기타">기타</button>
+            </div>
+          </div>
+          <div class="mf-field mf-text">
+            <label class="mf-label">학교·소속 (선택)</label>
+            <input type="text" id="meta-school" placeholder="예: 서정대학교 (입력 안 해도 OK)" maxlength="40">
+          </div>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="consent-chk">
+        <span>
+          <strong>익명 응답 데이터 수집에 동의합니다.</strong>
+          이름·연락처 없이 검사 결과와 위 익명 정보만 저장됩니다.
+          <button type="button" class="link-btn" id="open-privacy">개인정보 처리방침 보기</button>
+        </span>
+      </label>
+
+      <button class="btn" id="start-btn" disabled>행동스타일 검사 시작 <span class="arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- TEST -->
+<section class="screen" id="screen-test">
+  <div class="container">
+    <div class="test">
+      <div class="test-header">
+        <div class="label">section 01 · forced choice</div>
+        <h2>가장 나같은 것과 가장 아닌 것</h2>
+        <p>네 개의 문장 중에서 평소 나에게 가장 가까운 하나, 가장 먼 하나를 고르세요.</p>
+        <div class="fc-guide">
+          왼쪽 <b style="color:var(--ahee)">＋ 버튼</b> = <b>가장 나같다</b> · 오른쪽 <b>－ 버튼</b> = <b>가장 아니다</b>.
+          한 블록에 각각 하나씩 고르면 다음으로 넘어갑니다.
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-inner">
+          <span class="progress-label">PROGRESS</span>
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-count" id="progress-count">0 / 40</span>
+        </div>
+      </div>
+      <div id="blocks-list"></div>
+      <div class="submit-wrap">
+        <div class="submit-status warn" id="submit-status">40개 블록이 남았습니다</div>
+        <button class="btn" id="submit-btn" disabled>결과 카드 받기 <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="screen-result">
+  <div class="container">
+    <div class="result">
+      <div class="result-header">
+        <div class="eyebrow">your behavior style <span class="dot">●</span> ready to share</div>
+        <h2>당신은 <span style="color:var(--ahee)" id="r-headline-name">The Captain</span></h2>
+        <div class="differentiation-note" id="diff-note" style="display:none"></div>
+      </div>
+
+      <div class="submit-banner" id="submit-banner" style="display:none"></div>
+      <button class="pdf-dl-btn" id="pdf-dl-btn"><span class="ic">↓</span> 결과 PDF 다운로드</button>
+
+      <div class="card-wrap">
+        <div class="card" id="result-card">
+          <div class="card-watermark" id="card-watermark">D</div>
+          <div class="card-top">
+            <div class="card-brand">ahee<span class="dot">.</span> behavior style</div>
+            <div class="card-no" id="card-no">DISC · 01 / 04</div>
+          </div>
+          <div class="card-mid">
+            <div class="card-cat" id="card-cat">● behavior style / D</div>
+            <div class="card-name" id="card-name">The <span class="accent">Captain</span></div>
+            <div class="card-en" id="card-en">주도형</div>
+            <div class="card-slogan" id="card-slogan"></div>
+            <div class="card-axes" id="card-axes"></div>
+            <div class="card-traits" id="card-traits"></div>
+          </div>
+          <div class="card-bottom">
+            <div class="card-divider"></div>
+            <div class="card-meta">
+              <div class="item"><div class="k">primary</div><div class="v" id="meta-primary">D · 주도</div></div>
+              <div class="item"><div class="k">best fit</div><div class="v" id="meta-job">사업개발</div></div>
+            </div>
+            <div class="card-foot">
+              <span>ahee.co.kr / behavior-style</span>
+              <span id="card-date">2026.06</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn"><span class="icon">↗</span> 공유하기</button>
+        <button class="action-btn"><span class="icon">↓</span> 이미지로 저장</button>
+        <button class="action-btn"><span class="icon">⎘</span> 링크 복사</button>
+      </div>
+
+      <!-- 4-axis graph -->
+      <div class="section">
+        <div class="section-label">section 01 · your profile</div>
+        <h3 id="graph-headline">네 가지 스타일 분포</h3>
+        <div class="axis-graph" id="axis-graph"></div>
+      </div>
+
+      <!-- profile -->
+      <div class="section">
+        <div class="section-label">section 02 · strengths & cautions</div>
+        <h3 id="profile-headline">당신은 어떻게 일하나요</h3>
+        <div class="detail-grid">
+          <div class="detail-card">
+            <div class="detail-label">① 강점</div>
+            <div class="detail-title">잘하는 방식</div>
+            <div class="detail-body" id="d-strength"></div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">② 주의</div>
+            <div class="detail-title">조심할 점</div>
+            <div class="detail-body" id="d-watchout"></div>
+            <div class="detail-fix" id="d-watchout-fix"></div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">③ 소통법</div>
+            <div class="detail-title">이렇게 말하면 통해요</div>
+            <div class="detail-body" id="d-comm"></div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">④ 협업 궁합</div>
+            <div class="detail-title">함께 빛나는 스타일</div>
+            <div class="detail-body" id="d-collab"></div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">⑤ 스트레스 신호</div>
+            <div class="detail-title">힘들 때 나오는 모습</div>
+            <div class="detail-body" id="d-stress"></div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-label">⑥ 잘 맞는 환경</div>
+            <div class="detail-title">능력이 터지는 곳</div>
+            <div class="detail-body" id="d-env"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- job match -->
+      <div class="section">
+        <div class="section-label">section 03 · job match</div>
+        <h3>이 스타일과 잘 맞는 직무</h3>
+        <div class="match-list" id="match-list"></div>
+      </div>
+
+      <!-- cross with RIASEC -->
+      <div class="section">
+        <div class="section-label">section 04 · interest × behavior</div>
+        <h3>흥미(RIASEC) × 행동(DISC) 교차 해석</h3>
+        <div class="cross-box">
+          <p class="cross-lead">같은 행동스타일도 <span class="accent">무엇에 흥미가 있느냐</span>에 따라 전혀 다른 커리어가 됩니다. 두 결과를 겹쳐 보면 더 선명해져요.</p>
+          <div class="cross-card" id="cross-card" style="display:none">
+            <div class="cc-k">interest × behavior</div>
+            <div class="cc-combo" id="cc-combo"></div>
+            <div class="cc-body" id="cc-body"></div>
+          </div>
+          <div class="cross-pick" id="cross-pick">
+            <div class="cp-q">혹시 <b>커리어 코드(RIASEC) 검사</b>도 했다면, 1순위 흥미 코드를 골라보세요. 바로 교차 해석을 보여드려요.</div>
+            <div class="cp-choices" id="cp-choices"></div>
+            <div class="cross-cta">아직 안 했다면 → <a href="/quick">빠른 흥미검사 하러 가기 (3-5분)</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- reliability -->
+      <div class="section">
+        <div class="section-label">section 05 · about this test</div>
+        <h3>이 검사, 얼마나 믿을 수 있나요</h3>
+        <p style="font-size:13px;color:var(--ink-3);margin-bottom:16px;line-height:1.6">정직하게: 이 검사는 공개 도메인 DISC 4요인 모델을 바탕으로 Ahee가 자체 제작한 행동스타일 검사이며, 신뢰도 데이터를 수집 중입니다. 강제선택(ipsative) 방식은 '좋게 보이려는 응답'을 줄여줍니다.</p>
+        <div class="reliability">
+          <div class="r-title">● DISC 계열 검사 신뢰도 벤치마크</div>
+          <div class="r-lead">강제선택은 절대 점수가 아닌 '상대적 스타일'을 측정합니다. 같은 사람을 다른 사람과 직접 비교하기보다, 내 안에서 무엇이 강한지를 봅니다.</div>
+          <table>
+            <thead><tr><th>검사</th><th>구조</th><th>측정</th><th>비고</th></tr></thead>
+            <tbody>
+              <tr><td>전통 DISC (Marston)</td><td><span class="v">4요인</span></td><td>행동 경향</td><td class="src">1928, 공개 도메인 모델</td></tr>
+              <tr><td>강제선택형 검사</td><td><span class="v">ipsative</span></td><td>상대 강도</td><td class="src">사회적 바람직성 ↓</td></tr>
+              <tr><td><strong style="color:var(--ahee)">Ahee Behavior Style</strong></td><td><span class="v" style="color:var(--ink-3)">40블록</span></td><td><span class="v" style="color:var(--ink-3)">측정 중</span></td><td class="src">학생 데이터 후 발표</td></tr>
+            </tbody>
+          </table>
+          <div class="r-foot"><strong>참고용</strong> · 진로·협업 탐색 보조 자료이며 의학적·임상적 진단이 아닙니다. 흥미검사(RIASEC)·현장 경험·진로 상담과 함께 활용하세요.</div>
+        </div>
+      </div>
+
+      <div class="result-cta">
+        <h3>흥미검사도 함께 해보세요</h3>
+        <p>행동스타일 × 흥미 코드를 겹치면 진짜 나에게 맞는 커리어가 보입니다.</p>
+        <a class="btn" href="/" style="text-decoration:none">검사 더 둘러보기 <span class="arrow">→</span></a>
+        <button class="btn ghost" id="restart-btn" style="margin-left:8px">다시 검사하기</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY MODAL -->
+<div class="modal" id="privacy-modal">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close>×</button>
+    <div class="modal-eyebrow">● privacy policy</div>
+    <h3>개인정보 처리방침 (요약)</h3>
+    <div class="modal-body">
+      <p><strong>수집 항목 (모두 선택)</strong><br>성별, 학년·소속 구간, 학교·소속명. 이름·연락처·이메일 등 식별 정보는 일체 수집하지 않습니다.</p>
+      <p><strong>수집 목적</strong><br>① 검사 신뢰도 검증 ② 스타일 분포 통계 ③ 학년·성별별 결과 비교 ④ 문항 개선.</p>
+      <p><strong>보관 및 파기</strong><br>Google Sheets에 익명으로 저장. 신뢰도 검증 완료(목표 1년) 후 일괄 삭제 또는 정식 운영 시 별도 동의 재취득.</p>
+      <p><strong>제3자 제공</strong><br>어떤 경우에도 제3자에게 제공하지 않습니다. 집계·통계 자료만 공개될 수 있습니다.</p>
+      <p><strong>응답자 권리</strong><br>익명 수집이므로 사후 개별 삭제는 어렵습니다. 동의를 원치 않으시면 체크박스를 비워두고 검사만 진행하시면 됩니다.</p>
+      <p><strong>문의</strong><br>Ahee · 02-430-8542</p>
+    </div>
+    <button class="btn" data-close>확인</button>
+  </div>
+</div>
+
+<footer>
+  <span>● ahee / behavior-style / DISC v0.1</span>
+  <span>9:16 share format · 4 styles · 2026</span>
+</footer>
+
+<script>
+/* ============================================================
+   DATA — 공개 도메인 DISC 4요인 모델 기반 Ahee 자체 제작
+============================================================ */
+const AXES = ['D','I','S','C'];
+const AXIS_LABEL = {
+  D: { ko:'주도', en:'Dominance' },
+  I: { ko:'사교', en:'Influence' },
+  S: { ko:'안정', en:'Steadiness' },
+  C: { ko:'신중', en:'Conscientiousness' }
+};
+
+const POOLS = {
+  D: ["결단이 빠르다","경쟁에서 이기고 싶다","직설적으로 말한다","도전을 즐긴다","주도권을 쥐려 한다","결과로 평가받고 싶다","망설이기보다 실행한다","위험을 감수한다","밀어붙이는 편이다","목표 지향적이다","빠른 속도를 좋아한다","어려운 일에 끌린다","단호하게 결정한다","지는 걸 싫어한다","앞장서서 이끈다","핵심만 말한다","변화를 주도한다","자신감이 강하다","통제력을 원한다","거침없이 추진한다","한계에 도전한다","결정을 미루지 않는다","강하게 요구한다","압박에도 밀고 간다","새 영역을 개척한다","승부욕이 있다","큰 그림을 본다","위기에 강하다","결과를 빨리 보고 싶다","할 말은 한다","굽히지 않는다","모험을 택한다","정면돌파한다","추진력이 강하다","빠른 결정을 내린다","주장이 분명하다","일을 벌이는 편이다","끝장을 본다","강단이 있다","목표를 향해 돌진한다"],
+  I: ["사람과 어울리길 좋아한다","분위기를 띄운다","말로 설득한다","낙관적으로 본다","새 사람을 잘 사귄다","감정 표현이 풍부하다","칭찬받으면 신난다","활기차다","이야기 나누는 걸 즐긴다","인정받고 싶다","사람을 잘 웃긴다","열정적으로 말한다","친구가 많은 편이다","즉흥적이다","관심받는 걸 좋아한다","발표를 즐긴다","사교적이다","분위기에 민감하다","사람을 끌어모은다","긍정적으로 본다","표현이 자유롭다","호기심이 많다","새 모임을 잘 만든다","말이 많은 편이다","설득에 능하다","에너지가 넘친다","네트워킹을 즐긴다","영감을 잘 받는다","사람 이름을 잘 기억한다","박수받는 순간을 좋아한다","분위기 메이커다","즉석 대응이 빠르다","감정에 솔직하다","사람을 만나면 힘이 난다","칭찬을 잘한다","농담을 즐긴다","새 아이디어에 들뜬다","함께하는 걸 좋아한다","표정이 밝다","사람을 잘 띄워준다"],
+  S: ["차분한 편이다","남의 말을 잘 듣는다","꾸준하다","갈등을 피하려 한다","협력을 중시한다","인내심이 강하다","안정적인 걸 좋아한다","배려심이 깊다","약속을 잘 지킨다","묵묵히 일한다","익숙한 게 편하다","팀을 먼저 생각한다","온화한 편이다","천천히 신뢰를 쌓는다","분위기를 부드럽게 한다","끝까지 책임진다","남을 잘 돕는다","조용히 지지한다","다툼을 싫어한다","일관되게 행동한다","경청하는 편이다","양보를 잘한다","속도가 일정하다","편안한 분위기를 만든다","신중하게 관계를 맺는다","받쳐주는 역할이 편하다","감정을 잘 드러내지 않는다","참을성이 있다","화목을 중시한다","믿음직하다는 말을 듣는다","루틴을 좋아한다","갑작스런 변화가 부담스럽다","헌신적이다","팀워크를 챙긴다","차근차근 한다","남을 먼저 챙긴다","안정감을 준다","묵직하게 버틴다","조화를 추구한다","꾸준히 곁을 지킨다"],
+  C: ["정확하게 하려 한다","꼼꼼하다","데이터로 판단한다","규칙을 지킨다","분석을 좋아한다","신중하게 결정한다","디테일을 챙긴다","논리적으로 따진다","실수를 싫어한다","계획을 세운다","근거를 따진다","품질을 중시한다","체계적으로 정리한다","검토를 거듭한다","원칙을 따른다","완성도를 높이려 한다","자료를 꼼꼼히 본다","절차를 지킨다","객관적으로 본다","기준이 분명하다","깊이 파고든다","정밀하게 작업한다","비판적으로 검토한다","사실을 확인한다","정돈된 걸 좋아한다","차근히 분석한다","오류를 잘 찾는다","신뢰할 데이터를 원한다","신중히 말한다","표준을 지킨다","깔끔하게 정리한다","논리 빈틈을 본다","충분히 검증한다","정확한 숫자를 본다","차분히 따져본다","규정을 중시한다","세부사항에 강하다","완벽을 추구한다","빈틈을 메운다","근거 없이 안 움직인다"]
+};
+
+const STYLES = {
+  D: { en:"Captain", ko:"주도형", slogan:'"결과로 증명한다 — 일단 밀고 나간다"', traits:["#추진력","#결단","#승부근성"],
+    strength:"목표를 정하면 망설임 없이 밀어붙이는 추진력. 빠른 결정과 도전으로 정체된 상황을 돌파하고, 위기에서 오히려 강해집니다.",
+    watchout:"속도를 내다 사람·디테일을 놓치기 쉽습니다. 직설적인 말투가 상대에게 강하게 느껴질 수 있어요.",
+    watchoutFix:"중요한 결정 전 '한 명에게 물어보기' 한 단계만 넣으면 추진력이 신뢰로 바뀝니다.",
+    comm:"결론부터, 짧게, 선택지를 주면 잘 통합니다. 장황한 설명엔 답답해해요.",
+    collab:"C(신중)·S(안정) 스타일과 짝이면 추진력에 안정성과 정확성이 붙습니다.",
+    stress:"스트레스를 받으면 더 통제하려 하고 공격적으로 변합니다. '위임'이 가장 좋은 해독제예요.",
+    env:"권한과 결정권이 주어지고, 과정보다 결과로 평가받는 환경.",
+    jobs:[["사업개발·세일즈",92],["창업·신사업",90],["프로젝트 리드",87],["퍼포먼스 마케팅",83],["현장 총괄 PM",80]] },
+  I: { en:"Spark", ko:"사교형", slogan:'"사람을 모으면 일이 된다"', traits:["#설득력","#긍정","#네트워킹"],
+    strength:"사람을 끌어모으고 분위기를 띄우는 에너지. 설득과 표현으로 팀에 활기를 불어넣고, 새로운 관계를 빠르게 만듭니다.",
+    watchout:"마무리·디테일이 약할 수 있어요. 인정받고 싶은 마음에 일을 과하게 벌이기 쉽습니다.",
+    watchoutFix:"시작한 일에 '마감 책임자 1명'을 정해두면 추진이 결과까지 이어집니다.",
+    comm:"밝게, 인정과 공감을 담아 말하면 잘 통합니다. 차갑고 사무적인 톤은 위축시켜요.",
+    collab:"C(신중)·S(안정) 스타일이 디테일과 꾸준함을 받쳐주면 빛납니다.",
+    stress:"스트레스를 받으면 말이 많아지고 감정적으로 흔들립니다. 혼자 정리하는 시간이 약입니다.",
+    env:"사람을 만나고 표현·설득할 수 있고, 인정과 반응이 보이는 환경.",
+    jobs:[["마케팅·브랜딩",91],["영업·세일즈",89],["PR·홍보",86],["커뮤니티·CX",83],["콘텐츠 기획",80]] },
+  S: { en:"Anchor", ko:"안정형", slogan:'"꾸준함이 팀을 지탱한다"', traits:["#협력","#인내","#신뢰"],
+    strength:"묵묵히 팀을 지탱하는 안정감. 경청과 협력으로 사람 사이를 부드럽게 잇고, 한번 맡은 일은 끝까지 책임집니다.",
+    watchout:"변화와 갈등을 피하려다 할 말을 못 할 수 있어요. 자기 의견·공을 잘 드러내지 않습니다.",
+    watchoutFix:"'NO'와 '제 생각은요'를 연습하세요. 당신의 의견은 생각보다 팀에 꼭 필요합니다.",
+    comm:"차분하게, 갑작스런 변화 없이 미리 알려주면 잘 따라옵니다. 몰아붙이면 오히려 닫혀요.",
+    collab:"D(주도)·I(사교)의 추진을 안정적으로 받쳐주는 최고의 파트너입니다.",
+    stress:"스트레스를 받으면 속으로 삭이고 수동적이 됩니다. 솔직하게 말하는 게 약이에요.",
+    env:"예측 가능하고 관계가 안정적인, 협력 중심의 환경.",
+    jobs:[["HR·인사",90],["고객 성공·CS",88],["운영·총무",85],["교육·코칭",82],["품질·지원",79]] },
+  C: { en:"Architect", ko:"신중형", slogan:'"정확함이 결국 이긴다"', traits:["#정확성","#분석","#원칙"],
+    strength:"기준을 세우고 정확하게 설계하는 신중함. 데이터와 논리로 실수를 막고 결과물의 품질을 끌어올립니다.",
+    watchout:"완벽을 좇다 결정·실행이 늦어질 수 있어요. 냉정한 지적이 차갑게 느껴질 수 있습니다.",
+    watchoutFix:"'80%면 일단 공유' 기준을 두세요. 완벽보다 빠른 피드백이 완성도를 더 높입니다.",
+    comm:"근거·자료와 함께, 충분한 시간을 주고 말하면 잘 통합니다. 즉흥적 압박은 싫어해요.",
+    collab:"D(주도)·I(사교)의 속도에 정확성을 더해 팀의 균형을 잡습니다.",
+    stress:"스트레스를 받으면 더 따지고 혼자 파고듭니다. '완벽하지 않아도 된다'는 허용이 약이에요.",
+    env:"기준과 데이터가 분명하고, 충분히 검토할 시간이 주어지는 환경.",
+    jobs:[["데이터·분석",91],["회계·재무",89],["기획·전략",86],["품질·QA",83],["연구·R&D",80]] }
+};
+
+const BLENDS = {
+  DI:"추진력에 사람을 끌어모으는 힘까지 — 앞에서 끌고 가며 설득하는 돌파형 리더.",
+  DC:"빠른 결단에 정확성을 더한 — 밀어붙이되 빈틈을 챙기는 전략적 추진가.",
+  DS:"강한 추진력을 끈기로 받치는 — 시작하면 끝까지 가는 뚝심형 실행가.",
+  ID:"사람을 모으고 곧장 실행하는 — 분위기를 띄우며 결과까지 미는 에너지 드라이버.",
+  IS:"따뜻한 친화력과 꾸준함을 함께 가진 — 사람을 편하게 만드는 관계의 연결자.",
+  IC:"표현력에 꼼꼼함이 더해진 — 감각과 근거를 함께 챙기는 균형 잡힌 기획자.",
+  SD:"안정감을 바탕으로 필요할 땐 밀어붙이는 — 든든하면서 추진하는 믿음직한 실행가.",
+  SI:"차분함에 사교성을 더한 — 조용히 사람을 챙기는 부드러운 조율자.",
+  SC:"꾸준함과 정확성을 겸비한 — 맡기면 안심인 신뢰의 관리자.",
+  CD:"정확함에 추진력을 더한 — 기준을 세우고 끝까지 관철하는 원칙 있는 추진가.",
+  CI:"분석력에 표현력을 더한 — 근거를 설득력 있게 전하는 논리적 커뮤니케이터.",
+  CS:"신중함과 안정감을 함께 — 빈틈없이 받쳐주는 꼼꼼한 지원가."
+};
+
+const CROSS = {
+  D:{ R:"추진력 + 현실 감각 → 현장을 직접 끌고 가는 실행 리더. 생산·건설·엔지니어링 PM에서 강합니다.", I:"추진력 + 탐구 → 데이터로 무장해 빠르게 결정하는 전략가. 전략·그로스 직무가 잘 맞아요.", A:"추진력 + 예술 → 창의적 방향을 밀어붙이는 크리에이티브 디렉터형.", S:"추진력 + 사회 → 사람을 이끌고 변화를 만드는 조직 리더.", E:"추진력 + 기업 → 전형적인 사업가·세일즈 리더. 0→1 추진의 정점입니다.", C:"추진력 + 관습 → 시스템을 빠르게 세우고 관철하는 운영 리더." },
+  I:{ R:"사교 + 현실 → 현장과 사람을 잇는 활동형 영업·운영.", I:"사교 + 탐구 → 복잡한 걸 쉽게 전하는 테크 에반젤리스트.", A:"사교 + 예술 → 사람을 사로잡는 콘텐츠·브랜드 메이커.", S:"사교 + 사회 → 관계로 사람을 돕는 HR·교육·커뮤니티.", E:"사교 + 기업 → 설득과 네트워크로 파는 마케팅·세일즈.", C:"사교 + 관습 → 사람과 데이터를 함께 챙기는 PR·기획." },
+  S:{ R:"안정 + 현실 → 꾸준히 현장을 지키는 운영·기술 지원.", I:"안정 + 탐구 → 묵묵히 깊게 파는 연구·분석 지원.", A:"안정 + 예술 → 팀을 받치는 콘텐츠·디자인 서포터.", S:"안정 + 사회 → 사람을 돌보는 복지·상담·교육의 정수.", E:"안정 + 기업 → 관계로 길게 가는 고객 성공·계정 관리.", C:"안정 + 관습 → 빈틈없이 받치는 운영·총무·관리." },
+  C:{ R:"신중 + 현실 → 품질·안전을 지키는 기술 관리·QA.", I:"신중 + 탐구 → 데이터로 검증하는 분석가·리서처.", A:"신중 + 예술 → 디테일까지 챙기는 정교한 디자이너·편집자.", S:"신중 + 사회 → 정확하게 사람을 돕는 행정·운영 지원.", E:"신중 + 기업 → 숫자로 사업을 받치는 재무·전략 기획.", C:"신중 + 관습 → 정확성의 정점 — 회계·감사·컴플라이언스." }
+};
+
+const RIASEC_KO = { R:'현실형(R)', I:'탐구형(I)', A:'예술형(A)', S:'사회형(S)', E:'기업형(E)', C:'관습형(C)' };
+
+/* 40 블록 구성 (풀 i번째를 한 블록으로) */
+const BLOCKS = POOLS.D.map((_, i) => ({
+  id: i + 1,
+  opts: [
+    { t: POOLS.D[i], axis: 'D' },
+    { t: POOLS.I[i], axis: 'I' },
+    { t: POOLS.S[i], axis: 'S' },
+    { t: POOLS.C[i], axis: 'C' }
+  ]
+}));
+
+/* ============================================================
+   BACKEND
+============================================================ */
+const SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbwBNf_DJAcLG2lxQ7Etfjp6_gGYPYGEIPWKaDwbERo-gzWd5ZUEDHdpTE5WPCqAvJt2oQ/exec';
+const APP_VERSION = 'v0.1-disc-40';
+
+const state = {
+  responses: {},      // { blockId: { most, least } }
+  blockOrder: [],
+  optOrder: {},       // { blockId: [axis,...] shuffled }
+  startedAt: null,
+  meta: { gender:'', grade:'', school:'' },
+  consent: false,
+  pickedRiasec: null
+};
+function $(id){ return document.getElementById(id); }
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
+
+/* ============================================================
+   RENDER TEST
+============================================================ */
+function renderBlocks(){
+  state.blockOrder = shuffle(BLOCKS.slice());
+  const html = state.blockOrder.map((blk, idx) => {
+    const opts = shuffle(blk.opts.slice());
+    state.optOrder[blk.id] = opts.map(o => o.axis);
+    const rows = opts.map(o => `
+      <div class="fc-row" data-block="${blk.id}" data-axis="${o.axis}">
+        <button type="button" class="fc-btn most" data-kind="most" data-block="${blk.id}" data-axis="${o.axis}" title="가장 나같다">＋</button>
+        <div class="fc-stmt">${o.t}</div>
+        <button type="button" class="fc-btn least" data-kind="least" data-block="${blk.id}" data-axis="${o.axis}" title="가장 아니다">－</button>
+      </div>`).join('');
+    return `
+      <div class="fc-block" data-block="${blk.id}">
+        <div class="fc-top">
+          <div class="fc-num">Q${String(idx+1).padStart(2,'0')} <span style="opacity:0.5">· block-${String(blk.id).padStart(3,'0')}</span></div>
+          <div class="fc-legend"><span class="lg-most">＋ 가장 나같다</span><span class="lg-least">－ 가장 아니다</span></div>
+        </div>
+        <div class="fc-rows">${rows}</div>
+      </div>`;
+  }).join('');
+  $('blocks-list').innerHTML = html;
+
+  $('blocks-list').querySelectorAll('.fc-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const blockId = parseInt(this.dataset.block);
+      const axis = this.dataset.axis;
+      const kind = this.dataset.kind; // most | least
+      const cur = state.responses[blockId] || { most:null, least:null };
+
+      // 같은 칸을 다시 누르면 토글 해제
+      if (cur[kind] === axis) cur[kind] = null;
+      else {
+        cur[kind] = axis;
+        // most/least 가 같은 항목이 되면 반대편 해제
+        const other = kind === 'most' ? 'least' : 'most';
+        if (cur[other] === axis) cur[other] = null;
+      }
+      state.responses[blockId] = cur;
+      paintBlock(blockId);
+      updateProgress();
+    });
+  });
+}
+
+function paintBlock(blockId){
+  const cur = state.responses[blockId] || {};
+  const block = $('blocks-list').querySelector(`.fc-block[data-block="${blockId}"]`);
+  if (!block) return;
+  block.querySelectorAll('.fc-row').forEach(row => {
+    const axis = row.dataset.axis;
+    row.classList.toggle('is-most', cur.most === axis);
+    row.classList.toggle('is-least', cur.least === axis);
+    row.querySelector('.fc-btn.most').classList.toggle('on', cur.most === axis);
+    row.querySelector('.fc-btn.least').classList.toggle('on', cur.least === axis);
+  });
+  const done = cur.most && cur.least;
+  block.classList.toggle('done', !!done);
+}
+
+function blockDone(blockId){
+  const r = state.responses[blockId];
+  return r && r.most && r.least && r.most !== r.least;
+}
+function countDone(){ return BLOCKS.filter(b => blockDone(b.id)).length; }
+
+function updateProgress(){
+  const done = countDone();
+  const total = BLOCKS.length;
+  $('progress-fill').style.width = (done/total*100) + '%';
+  $('progress-count').textContent = `${done} / ${total}`;
+  const remaining = total - done;
+  const status = $('submit-status');
+  const btn = $('submit-btn');
+  if (remaining === 0){
+    status.textContent = '결과 카드를 받을 준비가 되었습니다 ●';
+    status.classList.remove('warn');
+    btn.disabled = false;
+  } else {
+    status.textContent = `${remaining}개 블록이 남았습니다`;
+    status.classList.add('warn');
+    btn.disabled = true;
+  }
+}
+
+/* ============================================================
+   SCORING (ipsative)
+============================================================ */
+function scoreDISC(){
+  const mostCount = {D:0,I:0,S:0,C:0}, leastCount = {D:0,I:0,S:0,C:0};
+  let answered = 0;
+  BLOCKS.forEach(b => {
+    const r = state.responses[b.id];
+    if (!r || !r.most || !r.least || r.most === r.least) return;
+    mostCount[r.most]++; leastCount[r.least]++; answered++;
+  });
+  const N = BLOCKS.length;
+  const net = {}, percent = {};
+  AXES.forEach(a => {
+    net[a] = mostCount[a] - leastCount[a];
+    percent[a] = Math.max(0, Math.min(100, Math.round(((net[a]+N)/(2*N))*100)));
+  });
+  const ranked = AXES.map(a => ({ axis:a, net:net[a], most:mostCount[a], least:leastCount[a], percent:percent[a] }))
+    .sort((x,y) => y.net - x.net || AXES.indexOf(x.axis) - AXES.indexOf(y.axis));
+  const primary = ranked[0].axis, secondary = ranked[1].axis;
+  const blendKey = primary + secondary;
+  const gap12 = ranked[0].net - ranked[1].net;
+  let pattern;
+  if (gap12 >= 8) pattern = '뚜렷한 단일형';
+  else if (gap12 >= 4) pattern = '주력 스타일형';
+  else if (gap12 >= 2) pattern = '복합 스타일형';
+  else pattern = '경계 스타일형';
+  return { mostCount, leastCount, net, percent, ranked, primary, secondary, blendKey, gap12, pattern, answered };
+}
+
+/* ============================================================
+   RENDER RESULT
+============================================================ */
+let LAST = null;
+function renderResult(r){
+  LAST = r;
+  const sp = STYLES[r.primary];
+  const styleIdx = AXES.indexOf(r.primary) + 1;
+
+  $('r-headline-name').textContent = 'The ' + sp.en;
+  $('card-watermark').textContent = r.primary;
+  $('card-no').textContent = `DISC · ${String(styleIdx).padStart(2,'0')} / 04`;
+  $('card-cat').innerHTML = `● behavior style / ${r.blendKey}`;
+  $('card-name').innerHTML = `The <span class="accent">${sp.en}</span>`;
+  $('card-en').textContent = `${sp.ko} · ${AXIS_LABEL[r.secondary].ko} 성향 보조`;
+  $('card-slogan').innerHTML = sp.slogan;
+  $('card-traits').innerHTML = sp.traits.map(t => `<span class="card-trait">${t}</span>`).join('');
+  $('meta-primary').textContent = `${r.primary} · ${AXIS_LABEL[r.primary].ko}`;
+  $('meta-job').textContent = sp.jobs[0][0];
+  const now = new Date();
+  $('card-date').textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}`;
+
+  // card mini axes
+  $('card-axes').innerHTML = AXES.map(a => `
+    <div class="ca-row">
+      <span>${a} · ${AXIS_LABEL[a].ko}</span>
+      <div class="ca-track"><div class="ca-fill ${a.toLowerCase()}" style="width:${r.percent[a]}%"></div></div>
+      <span style="text-align:right">${r.percent[a]}</span>
+    </div>`).join('');
+
+  // headline
+  $('graph-headline').textContent = `${sp.ko} (${r.blendKey}) · 네 가지 스타일 분포`;
+  $('profile-headline').textContent = `${sp.ko}, 당신은 이렇게 일합니다`;
+
+  // full graph (정렬: net 내림차순)
+  $('axis-graph').innerHTML = r.ranked.map((row, i) => `
+    <div class="ag-row ${i===0?'top':''}">
+      <div class="ag-name">${row.axis} · ${AXIS_LABEL[row.axis].ko}<span class="ag-en">${AXIS_LABEL[row.axis].en}</span></div>
+      <div class="ag-track"><div class="ag-fill ${row.axis.toLowerCase()}" data-target="${row.percent}"></div></div>
+      <div class="ag-val"><b>${row.percent}</b> · 가장 ${row.most} / 아닌 ${row.least}</div>
+    </div>`).join('');
+  setTimeout(() => {
+    $('axis-graph').querySelectorAll('.ag-fill').forEach(el => { el.style.width = el.dataset.target + '%'; });
+  }, 100);
+
+  // profile cards
+  $('d-strength').textContent = sp.strength;
+  $('d-watchout').textContent = sp.watchout;
+  $('d-watchout-fix').textContent = sp.watchoutFix;
+  $('d-comm').textContent = sp.comm;
+  $('d-collab').textContent = sp.collab;
+  $('d-stress').textContent = sp.stress;
+  $('d-env').textContent = sp.env;
+
+  // blend note
+  const diff = $('diff-note');
+  const blendLine = BLENDS[r.blendKey] || '';
+  if (blendLine){
+    let extra = '';
+    if (r.gap12 < 2) extra = ` (1·2위 차이가 작아 두 스타일이 거의 비슷합니다 — ${r.pattern})`;
+    diff.innerHTML = `<span class="dn-k">${r.blendKey} 블렌드</span> ${blendLine}${extra}`;
+    diff.style.display = 'block';
+  } else diff.style.display = 'none';
+
+  // jobs
+  $('match-list').innerHTML = sp.jobs.map(j => `
+    <div class="match-item">
+      <span class="match-name">${j[0]}<span class="pct">${j[1]}% fit</span></span>
+      <div class="match-bar"><div class="match-fill" data-target="${j[1]}"></div></div>
+    </div>`).join('');
+  setTimeout(() => {
+    $('match-list').querySelectorAll('.match-fill').forEach(el => { el.style.width = el.dataset.target + '%'; });
+  }, 120);
+
+  // cross with RIASEC
+  renderCrossChoices();
+  const saved = readSavedRiasec();
+  if (saved && saved.mainCode) {
+    state.pickedRiasec = saved.mainCode;
+    paintCrossChoice();
+    renderCross(saved.mainCode, saved);
+  }
+}
+
+function renderCrossChoices(){
+  $('cp-choices').innerHTML = ['R','I','A','S','E','C'].map(c =>
+    `<button type="button" class="cp-choice" data-code="${c}">${RIASEC_KO[c]}</button>`).join('');
+  $('cp-choices').querySelectorAll('.cp-choice').forEach(b => {
+    b.addEventListener('click', function(){
+      state.pickedRiasec = this.dataset.code;
+      paintCrossChoice();
+      renderCross(this.dataset.code, null);
+    });
+  });
+}
+function paintCrossChoice(){
+  $('cp-choices').querySelectorAll('.cp-choice').forEach(b => {
+    b.classList.toggle('selected', b.dataset.code === state.pickedRiasec);
+  });
+}
+function renderCross(code, saved){
+  if (!LAST) return;
+  const body = CROSS[LAST.primary] && CROSS[LAST.primary][code];
+  if (!body) return;
+  $('cc-combo').innerHTML = `${RIASEC_KO[code]} <span class="x">×</span> ${STYLES[LAST.primary].ko}(${LAST.primary})`;
+  let text = body;
+  if (saved && saved.ko) text = `흥미검사에서 <b>${saved.ko}</b>로 나온 당신 — ` + body;
+  $('cc-body').innerHTML = text;
+  $('cross-card').style.display = 'block';
+}
+
+function readSavedRiasec(){
+  try {
+    const raw = localStorage.getItem('ahee_riasec');
+    if (!raw) return null;
+    const o = JSON.parse(raw);
+    return (o && o.mainCode) ? o : null;
+  } catch(e){ return null; }
+}
+
+/* ============================================================
+   META + CONSENT
+============================================================ */
+document.querySelectorAll('.mf-choice').forEach(btn => {
+  btn.addEventListener('click', function(){
+    const field = this.dataset.field, value = this.dataset.value;
+    document.querySelectorAll(`.mf-choice[data-field="${field}"]`).forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+    state.meta[field] = value;
+  });
+});
+const schoolInput = $('meta-school');
+if (schoolInput) schoolInput.addEventListener('input', function(){ state.meta.school = this.value.trim(); });
+const consentChk = $('consent-chk');
+consentChk.addEventListener('change', function(){ state.consent = this.checked; $('start-btn').disabled = !this.checked; });
+$('open-privacy').addEventListener('click', function(e){ e.preventDefault(); $('privacy-modal').classList.add('active'); });
+document.querySelectorAll('#privacy-modal [data-close]').forEach(el => el.addEventListener('click', () => $('privacy-modal').classList.remove('active')));
+
+/* ============================================================
+   SUBMIT TO BACKEND
+============================================================ */
+async function submitToBackend(result){
+  const banner = $('submit-banner');
+  if (!SUBMIT_URL){
+    banner.textContent = '● 로컬 모드 — 응답이 서버로 전송되지 않습니다 (백엔드 미연결)';
+    banner.className = 'submit-banner skip'; banner.style.display='block'; return;
+  }
+  if (!state.consent){
+    banner.textContent = '● 동의하지 않으셨으므로 결과만 표시되고 전송은 생략됩니다';
+    banner.className = 'submit-banner skip'; banner.style.display='block'; return;
+  }
+  banner.textContent = '응답을 익명으로 저장하는 중…';
+  banner.className = 'submit-banner'; banner.style.display='block';
+
+  const payload = {
+    version: APP_VERSION,
+    test: 'disc',
+    primary: result.primary,
+    secondary: result.secondary,
+    blendKey: result.blendKey,
+    discCode: result.ranked.map(x=>x.axis).join(''),
+    gap12: result.gap12,
+    pattern: result.pattern,
+    percentScores: result.percent,
+    netScores: result.net,
+    mostCount: result.mostCount,
+    leastCount: result.leastCount,
+    crossRiasec: state.pickedRiasec || (readSavedRiasec()||{}).mainCode || '',
+    responses: state.responses,
+    meta: state.meta,
+    userAgent: (navigator.userAgent||'').slice(0,200)
+  };
+  try {
+    await fetch(SUBMIT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+    banner.textContent = '● 익명 응답이 저장되었습니다. 감사합니다.';
+    banner.className = 'submit-banner success';
+  } catch(err){
+    console.error('[Ahee DISC] 전송 실패', err);
+    banner.textContent = '● 응답 저장 실패 — 결과는 정상적으로 표시됩니다';
+    banner.className = 'submit-banner error';
+  }
+}
+
+/* ============================================================
+   FLOW
+============================================================ */
+$('start-btn').addEventListener('click', function(){
+  if (!state.consent) return;
+  state.responses = {}; state.optOrder = {}; state.startedAt = Date.now();
+  renderBlocks(); updateProgress();
+  showScreen('screen-test');
+});
+$('submit-btn').addEventListener('click', function(){
+  const result = scoreDISC();
+  // 행동스타일 결과도 교차용으로 저장
+  try { localStorage.setItem('ahee_disc', JSON.stringify({ primary: result.primary, secondary: result.secondary, blendKey: result.blendKey, en: STYLES[result.primary].en, ko: STYLES[result.primary].ko })); } catch(e){}
+  renderResult(result);
+  showScreen('screen-result');
+  submitToBackend(result);
+});
+$('restart-btn').addEventListener('click', function(){
+  state.responses = {}; $('submit-banner').style.display='none';
+  $('cross-card').style.display='none'; state.pickedRiasec=null;
+  showScreen('screen-intro');
+});
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+<script>
+(function(){
+  function go(){
+    var btn=document.getElementById('pdf-dl-btn'); if(!btn) return;
+    btn.addEventListener('click', function(){
+      var el=document.querySelector('.result'); if(!el) return;
+      if(typeof html2pdf==='undefined'){ alert('PDF 모듈을 불러오는 중입니다. 잠시 후 다시 눌러주세요.'); return; }
+      var key='DISC'; var wm=document.getElementById('card-watermark');
+      if(wm && wm.textContent) key=wm.textContent.trim();
+      var prev=btn.innerHTML; btn.disabled=true; btn.innerHTML='PDF 만드는 중…';
+      document.body.classList.add('pdf-mode');
+      try{ window.scrollTo(0,0); }catch(e){}
+      var opt={ margin:[6,6,8,6], filename:'Ahee_행동스타일_'+key+'.pdf',
+        image:{type:'jpeg',quality:0.96},
+        html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:760,scrollX:0,scrollY:0,x:0,y:0},
+        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+        pagebreak:{mode:['css','legacy']} };
+      function done(){ document.body.classList.remove('pdf-mode'); btn.disabled=false; btn.innerHTML=prev; }
+      html2pdf().set(opt).from(el).save().then(done).catch(function(err){ if(window.console)console.error('[pdf]',err); done(); alert('PDF 저장 중 문제가 생겼어요. 다시 시도해주세요.'); });
+    });
+  }
+  if(document.readyState!=='loading') go(); else document.addEventListener('DOMContentLoaded', go);
+})();
+</script>
+
+</body>
+</html>

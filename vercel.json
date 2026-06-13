@@ -5,7 +5,8 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/quick", "destination": "/v03_test" },
-    { "source": "/full",  "destination": "/v02_test" }
+    { "source": "/full",  "destination": "/v02_test" },
+    { "source": "/disc",  "destination": "/disc_test" }
   ],
   "headers": [
     {

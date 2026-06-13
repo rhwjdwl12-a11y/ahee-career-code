@@ -875,6 +875,7 @@ const ITEMS = [
 ============================================================ */
 const SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbwBNf_DJAcLG2lxQ7Etfjp6_gGYPYGEIPWKaDwbERo-gzWd5ZUEDHdpTE5WPCqAvJt2oQ/exec';
 const APP_VERSION = 'v0.4-quick-31';
+const RIASEC_KO_MAP = { R:'현실형(R)', I:'탐구형(I)', A:'예술형(A)', S:'사회형(S)', E:'기업형(E)', C:'관습형(C)' };
 
 const state = {
   responses: {},
@@ -1228,6 +1229,16 @@ $('start-btn').addEventListener('click', function() {
 });
 $('submit-btn').addEventListener('click', function() {
   const result = scoreAndPick(state.responses);
+  // DISC 검사 교차해석용으로 흥미 결과 저장
+  try {
+    localStorage.setItem('ahee_riasec', JSON.stringify({
+      mainCode: result.mainCode,
+      secondCode: result.secondCode,
+      hollandCode: result.ranked.slice(0,3).map(x=>x.code).join(''),
+      personaKey: result.personaKey,
+      ko: result.persona ? (result.persona.ko + ' (' + result.personaKey + ')') : RIASEC_KO_MAP[result.mainCode]
+    }));
+  } catch(e){}
   renderResult(result);
   renderReportExtras(result);
   showScreen('screen-result');
