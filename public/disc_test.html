@@ -102,8 +102,15 @@
   .test-header .label { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
   .test-header h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 8px; }
   .test-header p { color: var(--ink-3); font-size: 14px; }
-  .fc-guide { margin-top: 14px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-left: 2px solid var(--ahee); font-size: 13px; line-height: 1.6; color: var(--ink-2); }
-  .fc-guide b { color: var(--ink); }
+  .fc-guide { margin-top: 16px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line-2); border-left: 4px solid var(--ahee); }
+  .fc-guide .fg-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .fc-guide .fg-title .punct { color: var(--ahee); }
+  .fc-guide .fg-rows { display: grid; gap: 8px; }
+  .fc-guide .fg-row { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-2); }
+  .fc-guide .fg-chip { flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-family: var(--eng); font-weight: 800; font-size: 22px; color: #fff; }
+  .fc-guide .fg-chip.most { background: var(--ahee); }
+  .fc-guide .fg-chip.least { background: var(--ink); }
+  .fc-guide .fg-row b { color: var(--ink); font-weight: 700; }
 
   .progress-wrap { position: sticky; top: 56px; background: rgba(250,250,248,0.96); backdrop-filter: blur(10px); padding: 12px 0; margin-bottom: 18px; border-bottom: 1px solid var(--line); z-index: 50; }
   .progress-inner { display: flex; align-items: center; gap: 12px; }
@@ -116,18 +123,21 @@
   .fc-block { padding: 20px 0 22px; border-bottom: 1px solid var(--line); }
   .fc-block:last-child { border-bottom: none; }
   .fc-block.done { opacity: 0.62; }
-  .fc-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .fc-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   .fc-num { font-family: var(--mono); font-size: 10px; color: var(--ink-4); letter-spacing: 0.08em; }
-  .fc-legend { display: flex; gap: 14px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.04em; }
-  .fc-legend .lg-most { color: var(--ahee); }
-  .fc-legend .lg-least { color: var(--ink-3); }
+  /* per-block column headers — 응답 방법을 매 블록 명확히 */
+  .fc-colhead { display: grid; grid-template-columns: 56px 1fr 56px; gap: 10px; margin-bottom: 8px; }
+  .fc-colhead .ch { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.02em; text-align: center; line-height: 1.25; }
+  .fc-colhead .ch.most { color: var(--ahee); }
+  .fc-colhead .ch.least { color: var(--ink-3); }
   .fc-rows { display: grid; gap: 7px; }
-  .fc-row { display: grid; grid-template-columns: 40px 1fr 40px; gap: 10px; align-items: center; }
-  .fc-stmt { font-size: 15.5px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); padding: 9px 12px; border: 1px solid var(--line); background: var(--surface); transition: all 0.12s; }
-  .fc-row.is-most .fc-stmt { border-color: var(--ahee); background: rgba(255,51,102,0.05); }
+  .fc-row { display: grid; grid-template-columns: 56px 1fr 56px; gap: 10px; align-items: stretch; }
+  .fc-stmt { display: flex; align-items: center; font-size: 15.5px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); padding: 11px 14px; border: 1px solid var(--line); background: var(--surface); transition: all 0.12s; }
+  .fc-row.is-most .fc-stmt { border-color: var(--ahee); background: rgba(255,51,102,0.06); font-weight: 600; }
   .fc-row.is-least .fc-stmt { border-color: var(--line-2); background: #F4F4F2; color: var(--ink-3); }
-  .fc-btn { height: 38px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ink-4); transition: all 0.12s; display: flex; align-items: center; justify-content: center; }
+  .fc-btn { border: 1.5px solid var(--line-2); background: var(--surface); cursor: pointer; font-family: var(--eng); font-size: 22px; font-weight: 800; color: var(--ink-4); transition: all 0.12s; display: flex; align-items: center; justify-content: center; }
   .fc-btn:hover { border-color: var(--ink-3); color: var(--ink-2); }
+  .fc-btn.most:hover { border-color: var(--ahee); color: var(--ahee); }
   .fc-btn.most.on { background: var(--ahee); border-color: var(--ahee); color: #fff; }
   .fc-btn.least.on { background: var(--ink); border-color: var(--ink); color: #fff; }
 
@@ -279,8 +289,10 @@
   @media (max-width: 600px) {
     .intro h1 { font-size: 32px; }
     .card { max-width: 100%; }
-    .fc-stmt { font-size: 14.5px; padding: 8px 10px; }
-    .fc-row { grid-template-columns: 36px 1fr 36px; gap: 7px; }
+    .fc-stmt { font-size: 14.5px; padding: 10px 11px; }
+    .fc-row { grid-template-columns: 50px 1fr 50px; gap: 7px; }
+    .fc-colhead { grid-template-columns: 50px 1fr 50px; gap: 7px; }
+    .fc-btn { font-size: 20px; }
     .ag-row { grid-template-columns: 78px 1fr 78px; gap: 8px; }
   }
 
@@ -386,8 +398,11 @@
         <h2>가장 나같은 것과 가장 아닌 것</h2>
         <p>네 개의 문장 중에서 평소 나에게 가장 가까운 하나, 가장 먼 하나를 고르세요.</p>
         <div class="fc-guide">
-          왼쪽 <b style="color:var(--ahee)">＋ 버튼</b> = <b>가장 나같다</b> · 오른쪽 <b>－ 버튼</b> = <b>가장 아니다</b>.
-          한 블록에 각각 하나씩 고르면 다음으로 넘어갑니다.
+          <div class="fg-title">응답 방법<span class="punct">.</span> 한 블록에서 두 개를 고릅니다</div>
+          <div class="fg-rows">
+            <div class="fg-row"><span class="fg-chip most">＋</span> 네 문장 중 <b>가장 나같은 것</b> 하나 — 왼쪽 핑크 버튼</div>
+            <div class="fg-row"><span class="fg-chip least">－</span> 네 문장 중 <b>가장 아닌 것</b> 하나 — 오른쪽 검정 버튼</div>
+          </div>
         </div>
       </div>
       <div class="progress-wrap">
@@ -714,7 +729,11 @@ function renderBlocks(){
       <div class="fc-block" data-block="${blk.id}">
         <div class="fc-top">
           <div class="fc-num">Q${String(idx+1).padStart(2,'0')} <span style="opacity:0.5">· block-${String(blk.id).padStart(3,'0')}</span></div>
-          <div class="fc-legend"><span class="lg-most">＋ 가장 나같다</span><span class="lg-least">－ 가장 아니다</span></div>
+        </div>
+        <div class="fc-colhead">
+          <div class="ch most">＋ 가장<br>나같다</div>
+          <div></div>
+          <div class="ch least">－ 가장<br>아니다</div>
         </div>
         <div class="fc-rows">${rows}</div>
       </div>`;
